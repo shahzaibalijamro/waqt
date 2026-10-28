@@ -22,11 +22,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final horizontalPadding = (screenWidth * 0.05).clamp(16.0, 24.0).toDouble();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 15),
+          padding: EdgeInsetsGeometry.symmetric(horizontal: horizontalPadding),
           child: screens[currentIndex],
         ),
       ),
