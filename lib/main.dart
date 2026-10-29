@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:waqt/layout_screen.dart';
 
+import './views/splash_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: LayoutScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
