@@ -9,4 +9,5 @@ class AppColors {
   static const primaryText = Color(0xFF0f372d);
   static const mutedText = Color(0xFF6e7577);
   static const white = Color(0xFFFFFFFF);
+  static const listBg = Color(0xFFFAF7F2);
 }

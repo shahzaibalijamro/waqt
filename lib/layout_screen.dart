@@ -6,6 +6,8 @@ import 'package:waqt/views/calendar_screen.dart';
 import 'package:waqt/views/home_screen.dart';
 import 'package:waqt/views/settings_screen.dart';
 
+enum Screen { home, calendar, settings }
+
 class LayoutScreen extends StatefulWidget {
   const new({super.key});
 
@@ -23,6 +25,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    print(screenWidth * 0.05);
     final horizontalPadding = (screenWidth * 0.05).clamp(16.0, 24.0).toDouble();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
@@ -42,18 +45,18 @@ class _LayoutScreenState extends State<LayoutScreen> {
         },
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: GoogleFonts.manrope(
-          fontWeight: FontWeight(600),
+          fontWeight: const FontWeight(600),
           fontSize: 14,
           height: 1.5,
         ),
         selectedItemColor: AppColors.selectedColor,
         unselectedItemColor: AppColors.mutedText,
         unselectedLabelStyle: GoogleFonts.manrope(
-          fontWeight: FontWeight(600),
+          fontWeight: const FontWeight(600),
           fontSize: 14,
           height: 1.5,
         ),
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(PhosphorIconsRegular.house),
             activeIcon: Icon(
@@ -61,17 +64,17 @@ class _LayoutScreenState extends State<LayoutScreen> {
               color: AppColors.selectedColor,
             ),
 
-            label: "Home",
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIconsRegular.calendarBlank),
             activeIcon: Icon(PhosphorIconsFill.calendarBlank),
-            label: "Calendar",
+            label: 'Calendar',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIconsRegular.gearFine),
             activeIcon: Icon(PhosphorIconsFill.gearFine),
-            label: "Settings",
+            label: 'Settings',
           ),
         ],
       ),
