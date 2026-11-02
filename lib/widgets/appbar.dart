@@ -6,7 +6,8 @@ import 'package:waqt/layout_screen.dart';
 
 class MyAppBar extends StatelessWidget {
   final Screen screen;
-  const MyAppBar({super.key, required this.screen});
+  final BuildContext context;
+  const MyAppBar({super.key, required this.screen, required this.context});
 
   Widget _homeAppBar(double vh) {
     return Padding(
@@ -41,7 +42,7 @@ class MyAppBar extends StatelessWidget {
         spacing: 10,
         children: [
           InkWell(
-            onTap: () => print('back'),
+            onTap: () => Navigator.pop(context),
             borderRadius: BorderRadius.circular(50),
             child: const Padding(
               padding: EdgeInsets.all(16),
@@ -53,7 +54,11 @@ class MyAppBar extends StatelessWidget {
             ),
           ),
           Text(
-            screen == Screen.calendar ? 'Prayer calendar' : 'Settings',
+            screen == Screen.calendar
+                ? 'Prayer calendar'
+                : screen == Screen.search
+                ? 'Choose your city'
+                : 'Settings',
             style: GoogleFonts.manrope(
               fontWeight: FontWeight.w700,
               fontSize: 24,

@@ -6,7 +6,7 @@ import 'package:waqt/views/calendar_screen.dart';
 import 'package:waqt/views/home_screen.dart';
 import 'package:waqt/views/settings_screen.dart';
 
-enum Screen { home, calendar, settings }
+enum Screen { home, calendar, settings, search }
 
 class LayoutScreen extends StatefulWidget {
   const new({super.key});

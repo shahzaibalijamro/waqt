@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LayoutScreen()),
@@ -26,9 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/splash.png"),
+          image: AssetImage('assets/images/splash.png'),
           alignment: AlignmentGeometry.center,
           fit: BoxFit.cover,
         ),

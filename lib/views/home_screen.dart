@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
-        const MyAppBar(screen: Screen.home),
+        MyAppBar(screen: Screen.home, context: context),
         SizedBox(height: vh * 16),
         Row(
           mainAxisSize: MainAxisSize.max,

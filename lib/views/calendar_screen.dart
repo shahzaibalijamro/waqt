@@ -18,7 +18,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
-        const MyAppBar(screen: Screen.calendar),
+        MyAppBar(screen: Screen.calendar, context: context),
         SizedBox(height: vh * 16),
         Container(
           padding: EdgeInsets.symmetric(vertical: vh * 5),
@@ -587,7 +587,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0xFFF4F1EB),
+                  color: const Color(0xFFF4F1EB),
                   border: BoxBorder.fromLTRB(
                     bottom: BorderSide(
                       color: AppColors.mutedText.withValues(alpha: 0.3),
@@ -1003,8 +1003,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Color(0xFFF4F1EB),
-                  borderRadius: BorderRadius.vertical(
+                  color: const Color(0xFFF4F1EB),
+                  borderRadius: const BorderRadius.vertical(
                     bottom: Radius.circular(18),
                   ),
                   border: BoxBorder.fromLTRB(
@@ -1231,7 +1231,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 onTap: () => print('Month back'),
                 borderRadius: BorderRadius.circular(50),
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     spacing: 6,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1259,7 +1259,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 onTap: () => print('Month forward'),
                 borderRadius: BorderRadius.circular(50),
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     spacing: 6,
                     children: [
