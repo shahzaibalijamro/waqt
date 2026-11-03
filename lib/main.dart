@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/search_screen.dart';
 
 import './views/splash_screen.dart';
 
@@ -12,8 +15,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SplashScreen(),
+    return GetMaterialApp(
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const SplashScreen()),
+        GetPage(name: '/main', page: () => const MainScreen()),
+        GetPage(name: '/search', page: () => const SearchLocation()),
+      ],
       debugShowCheckedModeBanner: false,
     );
   }

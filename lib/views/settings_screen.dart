@@ -118,47 +118,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           child: Column(
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                spacing: 14,
-                children: [
-                  const Icon(
-                    PhosphorIconsBold.calculator,
-                    color: AppColors.selectedColor,
-                    size: 30,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
-                    children: [
-                      Text(
-                        'Calculation Method',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                          height: 1,
-                        ),
-                      ),
-                      Text(
-                        'University of Islamic Sciences, Karachi',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    PhosphorIconsBold.caretRight,
-                    color: AppColors.selectedColor,
-                    fontWeight: FontWeight.w700,
-                    size: 20,
-                  ),
-                ],
+              CalculationMethodTile(
+                selectedMethod: 'University of Islamic Sciences, Karachi',
               ),
               Container(
                 width: double.infinity,
@@ -251,6 +212,236 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CalculationMethodTile extends StatelessWidget {
+  const new({super.key, required this.selectedMethod});
+  final String selectedMethod;
+
+  @override
+  Widget build(BuildContext context) {
+    final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
+    final vw = MediaQuery.of(context).size.width;
+    final horizontalPadding = (vw * 0.05).clamp(16.0, 24.0).toDouble();
+    bool isSelected() => true;
+    void showBottomSheet() {
+      showModalBottomSheet(
+        showDragHandle: true,
+        backgroundColor: AppColors.backgroundColor,
+        context: context,
+        useSafeArea: true,
+        builder: (context) {
+          return Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            decoration: const BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Calculation Method',
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    height: 1.5,
+                  ),
+                ),
+                Text(
+                  'Choose how your prayer times are calculated.',
+                  style: GoogleFonts.manrope(
+                    color: AppColors.mutedText,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    height: 1.3,
+                  ),
+                ),
+                SizedBox(height: vh * 20),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      spacing: 14,
+                      children: [
+                        Text(
+                          '1.',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            height: 1,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
+                          children: [
+                            Text(
+                              'Hanafi',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                height: 1,
+                              ),
+                            ),
+                            Text(
+                              'Example: 05:30 PM',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (isSelected()) ...[
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.selectedColor,
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: Text(
+                              'SELECTED',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 1,
+                      margin: const EdgeInsets.symmetric(vertical: 16),
+                      color: AppColors.mutedText.withValues(alpha: 0.3),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      spacing: 14,
+                      children: [
+                        Text(
+                          '2.',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            height: 1,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
+                          children: [
+                            Text(
+                              '24-hour',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                height: 1,
+                              ),
+                            ),
+                            Text(
+                              'Example: 17:30 PM',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (isSelected()) ...[
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.selectedColor,
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: Text(
+                              'SELECTED',
+                              style: GoogleFonts.manrope(
+                                color: AppColors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    SizedBox(height: vh * 30),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
+    return InkWell(
+      onTap: showBottomSheet,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        spacing: 14,
+        children: [
+          const Icon(
+            PhosphorIconsBold.calculator,
+            color: AppColors.selectedColor,
+            size: 30,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
+            children: [
+              Text(
+                'Calculation Method',
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  height: 1,
+                ),
+              ),
+              Text(
+                selectedMethod,
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  height: 1,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          const Icon(
+            PhosphorIconsBold.caretRight,
+            color: AppColors.selectedColor,
+            fontWeight: FontWeight.w700,
+            size: 20,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -112,56 +112,76 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Text(
-                      'Date',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        'Date',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        'Fajr',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        'Dhuhr',
+                        textAlign: TextAlign.center,
+
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        'Asr',
+                        textAlign: TextAlign.center,
+
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        'Maghrib',
+                        textAlign: TextAlign.center,
+
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        'Isha',
+                        textAlign: TextAlign.end,
+
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ],
@@ -179,14 +199,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                    Expanded(
                       child: Text.rich(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         TextSpan(
                           text: '27',
                           style: GoogleFonts.manrope(
@@ -217,159 +233,173 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1, 0),
+                        child: Text.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: '5:12',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\n',
+
+                                style: GoogleFonts.manrope(
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'AM',
+
+                                style: GoogleFonts.manrope(
+
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -387,14 +417,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                    Expanded(
                       child: Text.rich(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         TextSpan(
                           text: '27',
                           style: GoogleFonts.manrope(
@@ -425,159 +451,173 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1, 0),
+                        child: Text.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: '5:12',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\n',
+
+                                style: GoogleFonts.manrope(
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'AM',
+
+                                style: GoogleFonts.manrope(
+
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -595,14 +635,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                    Expanded(
                       child: Text.rich(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         TextSpan(
                           text: '27',
                           style: GoogleFonts.manrope(
@@ -633,159 +669,173 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1, 0),
+                        child: Text.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: '5:12',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\n',
+
+                                style: GoogleFonts.manrope(
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'AM',
+
+                                style: GoogleFonts.manrope(
+
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -803,14 +853,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                    Expanded(
                       child: Text.rich(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         TextSpan(
                           text: '27',
                           style: GoogleFonts.manrope(
@@ -841,159 +887,173 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1, 0),
+                        child: Text.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: '5:12',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\n',
+
+                                style: GoogleFonts.manrope(
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'AM',
+
+                                style: GoogleFonts.manrope(
+
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -1014,14 +1074,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   ),
                 ),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                    Expanded(
                       child: Text.rich(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         TextSpan(
                           text: '27',
                           style: GoogleFonts.manrope(
@@ -1052,159 +1108,173 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                          text: '5:12',
+                          style: GoogleFonts.manrope(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '\n',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'AM',
+
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
-                    Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                        text: '5:12',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontWeight: FontWeight.w800,
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment(1, 0),
+                        child: Text.rich(
+                          textAlign: TextAlign.center,
+                          TextSpan(
+                            text: '5:12',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontWeight: FontWeight.w800,
 
-                          fontSize: 16,
+                              fontSize: 16,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '\n',
+
+                                style: GoogleFonts.manrope(
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'AM',
+
+                                style: GoogleFonts.manrope(
+
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        children: [
-                          TextSpan(
-                            text: '\n',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'AM',
-
-                            style: GoogleFonts.manrope(
-                              color: AppColors.primaryText,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
@@ -1285,6 +1355,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ],
           ),
         ),
+        SizedBox(height: vh * 24),
       ],
     );
   }

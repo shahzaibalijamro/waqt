@@ -8,14 +8,14 @@ import 'package:waqt/views/settings_screen.dart';
 
 enum Screen { home, calendar, settings, search }
 
-class LayoutScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   const new({super.key});
 
   @override
-  State<LayoutScreen> createState() => _LayoutScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _LayoutScreenState extends State<LayoutScreen> {
+class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = [
     const HomeScreen(),
     const CalendarScreen(),

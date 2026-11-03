@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
@@ -16,49 +17,36 @@ class MyAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         spacing: 10,
         children: [
-          SizedBox(
-            width: 35,
-            child: Image.asset('assets/icons/moon.png', fit: BoxFit.contain),
-          ),
-          Text(
-            'Waqt',
-            style: GoogleFonts.manrope(
-              fontWeight: FontWeight.w700,
-              fontSize: 24,
-              color: AppColors.primaryText,
+          if (screen == Screen.home) ...[
+            SizedBox(
+              width: 35,
+              child: Image.asset('assets/icons/moon.png', fit: BoxFit.contain),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _normalAppBar(double vh, Screen screen) {
-    return Padding(
-      padding: EdgeInsets.only(top: vh * 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 10,
-        children: [
-          InkWell(
-            onTap: () => Navigator.pop(context),
-            borderRadius: BorderRadius.circular(50),
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Icon(
-                PhosphorIconsBold.arrowLeft,
-                size: 24,
-                fontWeight: FontWeight.w700,
+          ],
+          if (screen == Screen.search) ...[
+            InkWell(
+              onTap: () => Get.back(),
+              child: Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Icon(
+                  PhosphorIconsBold.arrowLeft,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
-          ),
+          ],
           Text(
             screen == Screen.calendar
                 ? 'Prayer calendar'
                 : screen == Screen.search
                 ? 'Choose your city'
-                : 'Settings',
+                : screen == Screen.settings
+                ? 'Settings'
+                : 'Waqt',
             style: GoogleFonts.manrope(
               fontWeight: FontWeight.w700,
               fontSize: 24,
@@ -73,11 +61,6 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
-    switch (screen) {
-      case Screen.home:
-        return _homeAppBar(vh);
-      default:
-        return _normalAppBar(vh, screen);
-    }
+    return _homeAppBar(vh);
   }
 }
