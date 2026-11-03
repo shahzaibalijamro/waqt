@@ -52,7 +52,7 @@ class _SearchLocationState extends State<SearchLocation> {
                     size: 25,
                   ),
                 ),
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 16,
                 ),
@@ -83,8 +83,188 @@ class _SearchLocationState extends State<SearchLocation> {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  spacing: 16,
+                  children: [
+                    Transform.rotate(
+                      angle: 1.6,
+                      child: const Icon(
+                        PhosphorIconsFill.navigationArrow,
+                        color: AppColors.selectedColor,
+                      ),
+                    ),
+                    Text(
+                      'Current Location',
+                      style: GoogleFonts.manrope(
+                        color: AppColors.primaryText,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        height: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const LocationTile(
+              location: 'Karachi, Pakistan',
+              icon: PhosphorIconsBold.checkCircle,
+              bordered: true,
+              selected: true,
+            ),
+            const LocationTile(
+              location: 'Lahore, Pakistan',
+              icon: PhosphorIconsBold.clockClockwise,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                spacing: 16,
+                children: [
+                  Text(
+                    'Other Cities',
+                    style: GoogleFonts.manrope(
+                      color: AppColors.primaryText,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      height: 2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                children: const [
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                  LocationTile(
+                    location: 'Barcelona, Spain',
+                    icon: PhosphorIconsBold.mapPin,
+                    bordered: true,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LocationTile extends StatelessWidget {
+  const new({
+    super.key,
+    required this.location,
+    required this.icon,
+    this.bordered = false,
+    this.selected = false,
+  });
+  final String location;
+  final IconData icon;
+  final bool bordered;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: selected ? AppColors.listBg : AppColors.backgroundColor,
+        border: bordered
+            ? BoxBorder.fromLTRB(
+                bottom: BorderSide(
+                  color: AppColors.mutedText.withValues(alpha: 0.3),
+                ),
+              )
+            : null,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        spacing: 14,
+        children: [
+          Icon(icon, color: AppColors.selectedColor, size: 30),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
+            children: [
+              Text(
+                location.split(', ')[0],
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  height: 1,
+                ),
+              ),
+              Text(
+                location,
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  height: 1,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
