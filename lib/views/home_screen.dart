@@ -1,50 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/constants/routes.dart';
+import 'package:waqt/views/main_screen.dart';
 
 import '../widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const new({super.key});
+  const new({super.key, required this.goToCalendar});
+  final void Function() goToCalendar;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String location = 'Karachi, Pakistan';
+
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
         MyAppBar(screen: Screen.home, context: context),
-        SizedBox(height: vh * 16),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          spacing: 8,
-          children: [
-            const Icon(
-              PhosphorIconsFill.mapPin,
-              color: AppColors.selectedColor,
+        SizedBox(height: vh * 6),
+        InkWell(
+          onTap: () =>
+              Get.toNamed(AppRoutes.search, arguments: {'location': location}),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              spacing: 8,
+              children: [
+                const Icon(
+                  PhosphorIconsFill.mapPin,
+                  color: AppColors.selectedColor,
+                ),
+                Text(
+                  'Karachi, Pakistan',
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const Spacer(),
+                const Icon(
+                  PhosphorIconsRegular.caretDown,
+                  color: AppColors.selectedColor,
+                ),
+              ],
             ),
-            Text(
-              'Karachi, Pakistan',
-              style: GoogleFonts.manrope(
-                color: AppColors.primaryText,
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const Spacer(),
-            const Icon(
-              PhosphorIconsRegular.caretDown,
-              color: AppColors.selectedColor,
-            ),
-          ],
+          ),
         ),
-        SizedBox(height: vh * 12),
+        SizedBox(height: vh * 2),
         Row(
           mainAxisSize: MainAxisSize.max,
           spacing: 8,
@@ -138,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const Spacer(),
             InkWell(
-              onTap: () => print('ok'),
+              onTap: widget.goToCalendar,
               child: Row(
                 spacing: 8,
                 children: [
@@ -210,10 +222,43 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: BoxBorder.fromLTRB(
+                    bottom: BorderSide(
+                      color: AppColors.mutedText.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  spacing: 12,
+                  children: [
                     const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
+                      PhosphorIconsRegular.sunHorizon,
+                      color: AppColors.selectedColor,
+                    ),
+                    Text(
+                      'Fajr',
+                      style: GoogleFonts.manrope(
+                        color: AppColors.primaryText,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '5:12 AM',
+                      style: GoogleFonts.manrope(
+                        color: AppColors.primaryText,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
@@ -253,11 +298,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
-                    ),
                   ],
                 ),
               ),
@@ -295,54 +335,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
-                    const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: BoxBorder.fromLTRB(
-                    bottom: BorderSide(
-                      color: AppColors.mutedText.withValues(alpha: 0.3),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  spacing: 12,
-                  children: [
-                    const Icon(
-                      PhosphorIconsRegular.sunHorizon,
-                      color: AppColors.selectedColor,
-                    ),
-                    Text(
-                      'Fajr',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      '5:12 AM',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
                     ),
                   ],
                 ),
@@ -401,11 +393,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
-                    ),
                   ],
                 ),
               ),
@@ -443,11 +430,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
-                    const Icon(
-                      PhosphorIconsRegular.caretRight,
-                      color: AppColors.mutedText,
-                      size: 18,
                     ),
                   ],
                 ),

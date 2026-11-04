@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/routes.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
+import 'package:waqt/widgets/bottom_sheet.dart';
 
 class SettingsScreen extends StatefulWidget {
   const new({super.key});
@@ -61,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
+                    spacing: 6,
                     children: [
                       Text(
                         location,
@@ -116,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           child: Column(
             children: [
-              CalculationMethodTile(
+              const CalculationMethodTile(
                 selectedMethod: 'University of Islamic Sciences, Karachi',
               ),
               Container(
@@ -125,7 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 margin: const EdgeInsets.symmetric(vertical: 16),
                 color: AppColors.mutedText.withValues(alpha: 0.3),
               ),
-              AsrCalculationTile(selectedSchool: School.hanafi),
+              const AsrCalculationTile(selectedSchool: School.hanafi),
             ],
           ),
         ),
@@ -169,7 +170,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
+                    spacing: 6,
                     children: [
                       Text(
                         'Notifications',
@@ -239,167 +240,159 @@ class _CalculationMethodTileState extends State<CalculationMethodTile> {
     final horizontalPadding = (vw * 0.05).clamp(16.0, 24.0).toDouble();
     bool isSelected() => true;
     void showBottomSheet() {
-      showModalBottomSheet(
-        showDragHandle: true,
-        backgroundColor: AppColors.backgroundColor,
-        context: context,
-        useSafeArea: true,
-        builder: (context) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            decoration: const BoxDecoration(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Calculation Method',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    height: 1.5,
-                  ),
+      MyBottomSheet(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          decoration: const BoxDecoration(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Calculation Method',
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  height: 1.5,
                 ),
-                SizedBox(height: 6),
+              ),
+              Text(
+                'Choose how your prayer times are calculated.',
+                style: GoogleFonts.manrope(
+                  color: AppColors.mutedText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                style: GoogleFonts.manrope(
+                  color: AppColors.mutedText,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 1,
+                textAlignVertical: const TextAlignVertical(y: -0.1),
 
-                Text(
-                  'Choose how your prayer times are calculated.',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.mutedText,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    height: 1.5,
-                  ),
-                ),
-                SizedBox(height: 12),
-                TextField(
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    height: 2,
-                  ),
-                  controller: searchInputController,
-                  cursorColor: AppColors.primaryText,
-                  cursorHeight: 18,
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    isCollapsed: true,
-                    isDense: true,
-                    hoverColor: Colors.transparent,
-                    fillColor: AppColors.white,
-                    prefixIcon: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      child: Icon(
-                        PhosphorIconsBold.magnifyingGlass,
-                        color: AppColors.primaryText,
-                        size: 25,
-                      ),
+                controller: searchInputController,
+                cursorColor: AppColors.primaryText,
+                cursorHeight: 15,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  isCollapsed: true,
+                  isDense: true,
+                  hoverColor: Colors.transparent,
+                  fillColor: AppColors.white,
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: Icon(
+                      PhosphorIconsBold.magnifyingGlass,
+                      color: AppColors.primaryText,
+                      size: 25,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    // vertical: 15,
+                  ),
 
-                    prefixIconColor: AppColors.primaryText,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.mutedText.withValues(alpha: 0.3),
-                      ),
-                      borderRadius: BorderRadius.circular(18),
+                  prefixIconColor: AppColors.primaryText,
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.mutedText.withValues(alpha: 0.3),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.mutedText.withValues(alpha: 0.5),
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors.mutedText.withValues(alpha: 0.5),
+                      width: 1.5,
                     ),
-                    hint: Text(
-                      widget.selectedMethod,
-                      style: GoogleFonts.manrope(
-                        color: AppColors.mutedText,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        height: 2,
-                      ),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  hint: Text(
+                    widget.selectedMethod,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.manrope(
+                      color: AppColors.mutedText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                SizedBox(height: vh * 20),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColors.selectedColor,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: isSelected()
-                              ? Icon(
-                                  PhosphorIconsBold.check,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.white,
-                                  size: 20,
-                                )
-                              : null,
+              ),
+              SizedBox(height: vh * 20),
+              Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColors.selectedColor,
+                          borderRadius: BorderRadius.circular(50),
                         ),
-                        Text(
+                        child: isSelected()
+                            ? const Icon(
+                                PhosphorIconsBold.check,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.white,
+                                size: 20,
+                              )
+                            : null,
+                      ),
+                      Expanded(
+                        child: Text(
                           'University of Islamic Sciences, Karachi',
                           style: GoogleFonts.manrope(
                             color: AppColors.primaryText,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            height: 1,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            // height: 1,
                           ),
                         ),
-                        if (isSelected()) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                      ),
+                      if (isSelected()) ...[
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            'SELECTED',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ],
+                        ),
                       ],
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      margin: const EdgeInsets.symmetric(vertical: 16),
-                      color: AppColors.mutedText.withValues(alpha: 0.3),
-                    ),
-                    SizedBox(height: vh * 30),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
+                    ],
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    color: AppColors.mutedText.withValues(alpha: 0.3),
+                  ),
+                  SizedBox(height: vh * 30),
+                ],
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -417,7 +410,7 @@ class _CalculationMethodTileState extends State<CalculationMethodTile> {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+              spacing: 6,
               children: [
                 Text(
                   'Calculation Method',
@@ -469,174 +462,168 @@ class AsrCalculationTile extends StatelessWidget {
     bool isSelected(School school) =>
         selectedSchool.toString() == school.toString();
     void showBottomSheet() {
-      showModalBottomSheet(
-        showDragHandle: true,
-        backgroundColor: AppColors.backgroundColor,
-        context: context,
-        useSafeArea: true,
-        builder: (context) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            decoration: const BoxDecoration(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Asr calculation',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    height: 1.5,
-                  ),
+      MyBottomSheet(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          decoration: const BoxDecoration(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Asr calculation',
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  height: 1.5,
                 ),
-                Text(
-                  'Choose the juristic school used to calculate Asr time. This affects Asr only.',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.mutedText,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    height: 1.3,
-                  ),
+              ),
+              Text(
+                'Choose the juristic school used to calculate Asr time. This affects Asr only.',
+                style: GoogleFonts.manrope(
+                  color: AppColors.mutedText,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  height: 1.3,
                 ),
-                SizedBox(height: vh * 20),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Text(
-                          '1.',
-                          style: GoogleFonts.manrope(
-                            color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+              ),
+              SizedBox(height: vh * 20),
+              Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
+                    children: [
+                      Text(
+                        '1.',
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 6,
+                        children: [
+                          Text(
+                            'Hanafi',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              height: 1,
+                            ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              'Hanafi',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 05:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (isSelected(School.hanafi)) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          Text(
+                            'Example: 05:30 PM',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1,
                             ),
                           ),
                         ],
-                      ],
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      margin: const EdgeInsets.symmetric(vertical: 16),
-                      color: AppColors.mutedText.withValues(alpha: 0.3),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Text(
-                          '2.',
-                          style: GoogleFonts.manrope(
-                            color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+                      ),
+                      if (isSelected(School.hanafi)) ...[
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            'SELECTED',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              '24-hour',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 17:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
+                      ],
+                    ],
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    color: AppColors.mutedText.withValues(alpha: 0.3),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
+                    children: [
+                      Text(
+                        '2.',
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
                         ),
-                        if (isSelected(School.shafi)) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 6,
+                        children: [
+                          Text(
+                            '24-hour',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              height: 1,
                             ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          ),
+                          Text(
+                            'Example: 17:30 PM',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1,
                             ),
                           ),
                         ],
+                      ),
+                      if (isSelected(School.shafi)) ...[
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            'SELECTED',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ],
-                    ),
-                    SizedBox(height: vh * 30),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: vh * 30),
+            ],
+          ),
+        ),
       );
     }
 
@@ -654,7 +641,7 @@ class AsrCalculationTile extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+              spacing: 6,
               children: [
                 Text(
                   'Asr Calculation',
@@ -702,165 +689,159 @@ class SelectFormatTile extends StatelessWidget {
         selectedFormat.toString() == format.toString();
 
     void showBottomSheet() {
-      showModalBottomSheet(
-        showDragHandle: true,
-        backgroundColor: AppColors.backgroundColor,
-        context: context,
-        useSafeArea: true,
-        builder: (context) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            decoration: const BoxDecoration(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Select a Time Format',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    height: 2,
+      MyBottomSheet(
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          decoration: const BoxDecoration(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Select a Time Format',
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  height: 2,
+                ),
+              ),
+              SizedBox(height: vh * 20),
+              Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
+                    children: [
+                      Text(
+                        '1.',
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 6,
+                        children: [
+                          Text(
+                            '12-hour',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              height: 1,
+                            ),
+                          ),
+                          Text(
+                            'Example: 05:30 PM',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (isSelected(TimeFormat.twelveHour)) ...[
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            'SELECTED',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                ),
-                SizedBox(height: vh * 20),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Text(
-                          '1.',
-                          style: GoogleFonts.manrope(
-                            color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    color: AppColors.mutedText.withValues(alpha: 0.3),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
+                    children: [
+                      Text(
+                        '2.',
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 6,
+                        children: [
+                          Text(
+                            '24-hour',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              height: 1,
+                            ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              '12-hour',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 05:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (isSelected(TimeFormat.twelveHour)) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                          Text(
+                            'Example: 17:30 PM',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.primaryText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              height: 1,
                             ),
                           ),
                         ],
-                      ],
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 1,
-                      margin: const EdgeInsets.symmetric(vertical: 16),
-                      color: AppColors.mutedText.withValues(alpha: 0.3),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Text(
-                          '2.',
-                          style: GoogleFonts.manrope(
-                            color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+                      ),
+                      if (isSelected(TimeFormat.twentyFourHour)) ...[
+                        const Spacer(),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            'SELECTED',
+                            style: GoogleFonts.manrope(
+                              color: AppColors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              '24-hour',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 17:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (isSelected(TimeFormat.twentyFourHour)) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
                       ],
-                    ),
-                    SizedBox(height: vh * 30),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
+                    ],
+                  ),
+                  SizedBox(height: vh * 30),
+                ],
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -877,7 +858,7 @@ class SelectFormatTile extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
+            spacing: 6,
             children: [
               Text(
                 'Time Format',

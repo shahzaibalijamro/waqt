@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -126,8 +126,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: Text(
-                        'Fajr',
+                        'الفجر',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.manrope(
                           color: AppColors.primaryText,
@@ -137,20 +138,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: Text(
-                        'Dhuhr',
-                        textAlign: TextAlign.center,
-
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Asr',
+                        'الظهر',
                         textAlign: TextAlign.center,
 
                         style: GoogleFonts.manrope(
@@ -161,8 +151,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: Text(
-                        'Maghrib',
+                        'العصر',
                         textAlign: TextAlign.center,
 
                         style: GoogleFonts.manrope(
@@ -173,8 +164,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: Text(
-                        'Isha',
+                        'المغرب',
+                        textAlign: TextAlign.center,
+
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+
+                      child: Text(
+                        'العشاء',
                         textAlign: TextAlign.end,
 
                         style: GoogleFonts.manrope(
@@ -367,7 +373,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment(1, 0),
+                        alignment: const Alignment(1, 0),
                         child: Text.rich(
                           textAlign: TextAlign.center,
                           TextSpan(
@@ -584,7 +590,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment(1, 0),
+                        alignment: const Alignment(1, 0),
                         child: Text.rich(
                           textAlign: TextAlign.center,
                           TextSpan(
@@ -801,7 +807,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment(1, 0),
+                        alignment: const Alignment(1, 0),
                         child: Text.rich(
                           textAlign: TextAlign.center,
                           TextSpan(
@@ -1018,7 +1024,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment(1, 0),
+                        alignment: const Alignment(1, 0),
                         child: Text.rich(
                           textAlign: TextAlign.center,
                           TextSpan(
@@ -1238,7 +1244,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment(1, 0),
+                        alignment: const Alignment(1, 0),
                         child: Text.rich(
                           textAlign: TextAlign.center,
                           TextSpan(

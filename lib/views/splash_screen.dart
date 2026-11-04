@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:waqt/constants/routes.dart';
-import 'package:waqt/layout_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const new({super.key});

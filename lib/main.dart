@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/views/search_screen.dart';
 
 import './views/splash_screen.dart';

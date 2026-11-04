@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class SearchLocation extends StatefulWidget {

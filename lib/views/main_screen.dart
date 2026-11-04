@@ -16,16 +16,21 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> screens = [
-    const HomeScreen(),
-    const CalendarScreen(),
-    const SettingsScreen(),
-  ];
   int currentIndex = 0;
+  void goToCalendar() {
+    setState(() {
+      currentIndex = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      HomeScreen(goToCalendar: goToCalendar),
+      const CalendarScreen(),
+      const SettingsScreen(),
+    ];
     final screenWidth = MediaQuery.of(context).size.width;
-    print(screenWidth * 0.05);
     final horizontalPadding = (screenWidth * 0.05).clamp(16.0, 24.0).toDouble();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,

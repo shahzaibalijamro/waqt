@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/layout_screen.dart';
+import 'package:waqt/views/main_screen.dart';
 
 class MyAppBar extends StatelessWidget {
   final Screen screen;
@@ -32,7 +32,7 @@ class MyAppBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: Icon(
+                child: const Icon(
                   PhosphorIconsBold.arrowLeft,
                   fontWeight: FontWeight.w800,
                 ),
