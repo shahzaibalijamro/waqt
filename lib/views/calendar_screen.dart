@@ -391,7 +391,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 text: 'AM',
 
                                 style: GoogleFonts.manrope(
-
                                   color: AppColors.primaryText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -609,7 +608,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 text: 'AM',
 
                                 style: GoogleFonts.manrope(
-
                                   color: AppColors.primaryText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -827,7 +825,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 text: 'AM',
 
                                 style: GoogleFonts.manrope(
-
                                   color: AppColors.primaryText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -1045,7 +1042,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 text: 'AM',
 
                                 style: GoogleFonts.manrope(
-
                                   color: AppColors.primaryText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -1266,7 +1262,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 text: 'AM',
 
                                 style: GoogleFonts.manrope(
-
                                   color: AppColors.primaryText,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,

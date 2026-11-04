@@ -6,8 +6,8 @@ import 'package:waqt/layout_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class SearchLocation extends StatefulWidget {
-  const new({super.key, this.currentLocation});
-  final String? currentLocation;
+  const new({super.key, required this.currentLocation});
+  final String currentLocation;
 
   @override
   State<SearchLocation> createState() => _SearchLocationState();
@@ -73,17 +73,15 @@ class _SearchLocationState extends State<SearchLocation> {
                     ),
                     borderRadius: BorderRadius.circular(18),
                   ),
-                  hint: widget.currentLocation != null
-                      ? Text(
-                          widget.currentLocation!,
-                          style: GoogleFonts.manrope(
-                            color: AppColors.mutedText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            height: 2,
-                          ),
-                        )
-                      : null,
+                  hint: Text(
+                    widget.currentLocation,
+                    style: GoogleFonts.manrope(
+                      color: AppColors.mutedText,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      height: 2,
+                    ),
+                  ),
                 ),
               ),
               InkWell(

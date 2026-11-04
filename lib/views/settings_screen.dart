@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
+import 'package:waqt/constants/routes.dart';
 import 'package:waqt/layout_screen.dart';
-import 'package:waqt/views/search_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -37,12 +38,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         SizedBox(height: vh * 4),
         InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SearchLocation(currentLocation: location),
-            ),
-          ),
+          onTap: () =>
+              Get.toNamed(AppRoutes.search, arguments: {'location': location}),
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -61,31 +58,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   color: AppColors.selectedColor,
                   size: 30,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 8,
-                  children: [
-                    Text(
-                      location,
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        height: 1,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      Text(
+                        location,
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          height: 1,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Tap to change city',
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        height: 1,
+                      Text(
+                        'Tap to change city',
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          height: 1,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 const Icon(
                   PhosphorIconsBold.caretRight,
                   color: AppColors.selectedColor,
@@ -211,14 +209,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ),
+        SizedBox(height: vh * 24),
       ],
     );
   }
 }
 
-class CalculationMethodTile extends StatelessWidget {
-  const new({super.key, required this.selectedMethod});
+class CalculationMethodTile extends StatefulWidget {
+  const CalculationMethodTile({super.key, required this.selectedMethod});
   final String selectedMethod;
+
+  @override
+  State<CalculationMethodTile> createState() => _CalculationMethodTileState();
+}
+
+class _CalculationMethodTileState extends State<CalculationMethodTile> {
+  final TextEditingController searchInputController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchInputController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,13 +262,74 @@ class CalculationMethodTile extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
+                SizedBox(height: 6),
+
                 Text(
                   'Choose how your prayer times are calculated.',
                   style: GoogleFonts.manrope(
                     color: AppColors.mutedText,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    height: 1.3,
+                    height: 1.5,
+                  ),
+                ),
+                SizedBox(height: 12),
+                TextField(
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    height: 2,
+                  ),
+                  controller: searchInputController,
+                  cursorColor: AppColors.primaryText,
+                  cursorHeight: 18,
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    isDense: true,
+                    hoverColor: Colors.transparent,
+                    fillColor: AppColors.white,
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      child: Icon(
+                        PhosphorIconsBold.magnifyingGlass,
+                        color: AppColors.primaryText,
+                        size: 25,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+
+                    prefixIconColor: AppColors.primaryText,
+                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.mutedText.withValues(alpha: 0.3),
+                      ),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.mutedText.withValues(alpha: 0.5),
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    hint: Text(
+                      widget.selectedMethod,
+                      style: GoogleFonts.manrope(
+                        color: AppColors.mutedText,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        height: 2,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: vh * 20),
@@ -266,38 +339,30 @@ class CalculationMethodTile extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       spacing: 14,
                       children: [
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: AppColors.selectedColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: isSelected()
+                              ? Icon(
+                                  PhosphorIconsBold.check,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.white,
+                                  size: 20,
+                                )
+                              : null,
+                        ),
                         Text(
-                          '1.',
+                          'University of Islamic Sciences, Karachi',
                           style: GoogleFonts.manrope(
                             color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
                             height: 1,
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              'Hanafi',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 05:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
                         ),
                         if (isSelected()) ...[
                           const Spacer(),
@@ -328,66 +393,6 @@ class CalculationMethodTile extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(vertical: 16),
                       color: AppColors.mutedText.withValues(alpha: 0.3),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      spacing: 14,
-                      children: [
-                        Text(
-                          '2.',
-                          style: GoogleFonts.manrope(
-                            color: AppColors.primaryText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            Text(
-                              '24-hour',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                height: 1,
-                              ),
-                            ),
-                            Text(
-                              'Example: 17:30 PM',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.primaryText,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                height: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (isSelected()) ...[
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.selectedColor,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              'SELECTED',
-                              style: GoogleFonts.manrope(
-                                color: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
                     SizedBox(height: vh * 30),
                   ],
                 ),
@@ -409,31 +414,32 @@ class CalculationMethodTile extends StatelessWidget {
             color: AppColors.selectedColor,
             size: 30,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              Text(
-                'Calculation Method',
-                style: GoogleFonts.manrope(
-                  color: AppColors.primaryText,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  height: 1,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                Text(
+                  'Calculation Method',
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    height: 1,
+                  ),
                 ),
-              ),
-              Text(
-                selectedMethod,
-                style: GoogleFonts.manrope(
-                  color: AppColors.primaryText,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  height: 1,
+                Text(
+                  widget.selectedMethod,
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    height: 1,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const Spacer(),
           const Icon(
             PhosphorIconsBold.caretRight,
             color: AppColors.selectedColor,
@@ -645,31 +651,32 @@ class AsrCalculationTile extends StatelessWidget {
             color: AppColors.selectedColor,
             size: 30,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              Text(
-                'Asr Calculation',
-                style: GoogleFonts.manrope(
-                  color: AppColors.primaryText,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  height: 1,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                Text(
+                  'Asr Calculation',
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    height: 1,
+                  ),
                 ),
-              ),
-              Text(
-                capitalize(selectedSchool.toString().split('.')[1]),
-                style: GoogleFonts.manrope(
-                  color: AppColors.primaryText,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  height: 1,
+                Text(
+                  capitalize(selectedSchool.toString().split('.')[1]),
+                  style: GoogleFonts.manrope(
+                    color: AppColors.primaryText,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    height: 1,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const Spacer(),
           const Icon(
             PhosphorIconsBold.caretRight,
             color: AppColors.selectedColor,

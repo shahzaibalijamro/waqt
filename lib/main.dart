@@ -20,7 +20,13 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => const SplashScreen()),
         GetPage(name: '/main', page: () => const MainScreen()),
-        GetPage(name: '/search', page: () => const SearchLocation()),
+        GetPage(
+          name: '/search',
+          page: () {
+            final arguments = Get.arguments;
+            return SearchLocation(currentLocation: arguments['location']);
+          },
+        ),
       ],
       debugShowCheckedModeBanner: false,
     );
