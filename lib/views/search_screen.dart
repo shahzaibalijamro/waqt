@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
+import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class SearchLocation extends StatefulWidget {
-  const new({super.key, required this.currentLocation});
-  final String currentLocation;
+  const new({super.key});
 
   @override
   State<SearchLocation> createState() => _SearchLocationState();
@@ -15,6 +16,7 @@ class SearchLocation extends StatefulWidget {
 
 class _SearchLocationState extends State<SearchLocation> {
   final TextEditingController searchInputController = TextEditingController();
+  final ApiController controller = Get.find<ApiController>();
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -74,7 +76,7 @@ class _SearchLocationState extends State<SearchLocation> {
                     borderRadius: BorderRadius.circular(18),
                   ),
                   hint: Text(
-                    widget.currentLocation,
+                    controller.location.value!,
                     style: GoogleFonts.manrope(
                       color: AppColors.mutedText,
                       fontSize: 18,

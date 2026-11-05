@@ -4,21 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/routes.dart';
+import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/views/main_screen.dart';
 
 import '../widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const new({super.key, required this.goToCalendar});
-  final void Function() goToCalendar;
+  const new({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String location = 'Karachi, Pakistan';
-
+  ApiController controller = Get.find<ApiController>();
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
@@ -27,8 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         MyAppBar(screen: Screen.home, context: context),
         SizedBox(height: vh * 6),
         InkWell(
-          onTap: () =>
-              Get.toNamed(AppRoutes.search, arguments: {'location': location}),
+          onTap: () => Get.toNamed(AppRoutes.search),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -39,15 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   PhosphorIconsFill.mapPin,
                   color: AppColors.selectedColor,
                 ),
-                Text(
-                  'Karachi, Pakistan',
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                Obx(
+                  () => Expanded(
+                    child: Text(
+                      controller.location.value!,
+                      style: GoogleFonts.manrope(
+                        color: AppColors.primaryText,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
-                const Spacer(),
                 const Icon(
                   PhosphorIconsRegular.caretDown,
                   color: AppColors.selectedColor,
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const Spacer(),
             InkWell(
-              onTap: widget.goToCalendar,
+              onTap: () => controller.switchScreens(1),
               child: Row(
                 spacing: 8,
                 children: [

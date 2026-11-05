@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
+import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/widgets/appbar.dart';
 
@@ -13,6 +15,7 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
+  ApiController controller = Get.find<ApiController>();
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
@@ -74,13 +77,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
               PhosphorIconsFill.mapPin,
               color: AppColors.selectedColor,
             ),
-            Text(
-              'Karachi, Pakistan',
-              style: GoogleFonts.manrope(
-                color: AppColors.primaryText,
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                height: 2,
+            Obx(
+              () => Text(
+                controller.location.value!,
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  height: 2,
+                ),
               ),
             ),
           ],

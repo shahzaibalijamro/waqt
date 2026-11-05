@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:waqt/controllers/api_controller.dart';
+import 'package:waqt/utils/app_utils.dart';
 import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/views/search_screen.dart';
 
 import './views/splash_screen.dart';
 
-void main() {
+void main() async {
+  final AppUtils utils = Get.put(AppUtils());
+  await utils.initPrefs();
+  Get.put(ApiController());
   runApp(const MyApp());
 }
 
@@ -22,10 +27,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/main', page: () => const MainScreen()),
         GetPage(
           name: '/search',
-          page: () {
-            final arguments = Get.arguments;
-            return SearchLocation(currentLocation: arguments['location']);
-          },
+          page: () => const SearchLocation(),
+          transition: Transition.rightToLeftWithFade,
         ),
       ],
       debugShowCheckedModeBanner: false,
