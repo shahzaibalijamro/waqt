@@ -1,14 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/views/main_screen.dart';
+import 'package:waqt/constants/enums.dart';
+import 'package:waqt/controllers/api_controller.dart';
+import 'package:waqt/main.dart';
 
 class MyAppBar extends StatelessWidget {
   final Screen screen;
-  final BuildContext context;
-  const MyAppBar({super.key, required this.screen, required this.context});
+  MyAppBar({super.key, required this.screen});
+  final ApiController controller = Get.find<ApiController>();
 
   Widget _homeAppBar(double vh) {
     return Padding(
@@ -52,6 +55,35 @@ class MyAppBar extends StatelessWidget {
               fontSize: 24,
               color: AppColors.primaryText,
             ),
+          ),
+          Obx(
+            () => controller.isOffline.value
+                ? Expanded(
+                    child: InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: controller.isOnline,
+                      child: Row(
+                        spacing: 12,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(
+                            CupertinoIcons.wifi_exclamationmark,
+                            color: Colors.red,
+                            size: 25,
+                          ),
+                          Text(
+                            "No Internet",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
           ),
         ],
       ),

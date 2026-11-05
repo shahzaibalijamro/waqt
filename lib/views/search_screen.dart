@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/controllers/api_controller.dart';
-import 'package:waqt/views/main_screen.dart';
+import 'package:waqt/constants/enums.dart';
+import 'package:waqt/controllers/settings_controller.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class SearchLocation extends StatefulWidget {
@@ -16,7 +16,7 @@ class SearchLocation extends StatefulWidget {
 
 class _SearchLocationState extends State<SearchLocation> {
   final TextEditingController searchInputController = TextEditingController();
-  final ApiController controller = Get.find<ApiController>();
+  final SettingsController controller = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -29,7 +29,7 @@ class _SearchLocationState extends State<SearchLocation> {
           padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
             children: [
-              MyAppBar(screen: Screen.search, context: context),
+              MyAppBar(screen: Screen.search),
               SizedBox(height: vh * 24),
               TextField(
                 style: GoogleFonts.manrope(

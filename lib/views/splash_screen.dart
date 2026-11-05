@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:waqt/constants/routes.dart';
+import 'package:waqt/controllers/api_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const new({super.key});
@@ -12,12 +13,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => Get.offAllNamed(AppRoutes.main),
-    );
+    Future.delayed(const Duration(seconds: 2), () async {
+      await Get.find<ApiController>().isOnline();
+      Get.offAllNamed(AppRoutes.main);
+    });
   }
 
   @override

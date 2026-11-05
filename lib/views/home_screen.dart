@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:waqt/constants/colors.dart';
+import 'package:waqt/constants/enums.dart';
 import 'package:waqt/constants/routes.dart';
-import 'package:waqt/controllers/api_controller.dart';
-import 'package:waqt/views/main_screen.dart';
+import 'package:waqt/controllers/main_controller.dart';
+import 'package:waqt/controllers/settings_controller.dart';
+import 'package:waqt/main.dart';
 
 import '../widgets/appbar.dart';
 
@@ -17,43 +20,58 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ApiController controller = Get.find<ApiController>();
+  SettingsController controller = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
-        MyAppBar(screen: Screen.home, context: context),
+        MyAppBar(screen: Screen.home),
         SizedBox(height: vh * 6),
-        InkWell(
-          onTap: () => Get.toNamed(AppRoutes.search),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              spacing: 8,
-              children: [
-                const Icon(
-                  PhosphorIconsFill.mapPin,
-                  color: AppColors.selectedColor,
+        Obx(
+          () => InkWell(
+            hoverColor: Colors.transparent,
+            onTap: () {
+              if (controller.isLoading.value) return;
+              Get.toNamed(AppRoutes.search);
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Skeletonizer(
+                effect: ShimmerEffect(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  duration: const Duration(seconds: 1),
                 ),
-                Obx(
-                  () => Expanded(
-                    child: Text(
-                      controller.location.value!,
-                      style: GoogleFonts.manrope(
-                        color: AppColors.primaryText,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
+                enabled: controller.isLoading.value,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  spacing: 8,
+                  children: [
+                    const Icon(
+                      PhosphorIconsFill.mapPin,
+                      color: AppColors.selectedColor,
+                    ),
+                    Expanded(
+                      child: Text(
+                        controller.location.value!,
+                        style: GoogleFonts.manrope(
+                          color: AppColors.primaryText,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
+
+                    Skeleton.shade(
+                      child: const Icon(
+                        PhosphorIconsRegular.caretDown,
+                        color: AppColors.selectedColor,
+                      ),
+                    ),
+                  ],
                 ),
-                const Icon(
-                  PhosphorIconsRegular.caretDown,
-                  color: AppColors.selectedColor,
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -141,25 +159,26 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.max,
           spacing: 8,
           children: [
-            Text(
-              "Today's Prayers",
-              style: GoogleFonts.manrope(
-                color: AppColors.primaryText,
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
+            Expanded(
+              child: Text(
+                "Today's Prayers",
+                style: GoogleFonts.manrope(
+                  color: AppColors.primaryText,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
-            const Spacer(),
             InkWell(
-              onTap: () => controller.switchScreens(1),
+              onTap: () => Get.find<MainController>().switchScreens(1),
               child: Row(
-                spacing: 8,
+                spacing: 5,
                 children: [
                   Text(
                     'View month',
                     style: GoogleFonts.manrope(
                       color: AppColors.primaryText,
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

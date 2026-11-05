@@ -39,6 +39,7 @@ dependencies:
   get: ^5.0.0-release-candidate-9.3.3
   intl: ^0.20.3
   shared_preferences: ^2.5.6
+  skeletonizer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

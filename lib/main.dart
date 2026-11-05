@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:waqt/bindings/main_binding.dart';
 import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/utils/app_utils.dart';
 import 'package:waqt/views/main_screen.dart';
@@ -7,10 +8,10 @@ import 'package:waqt/views/search_screen.dart';
 
 import './views/splash_screen.dart';
 
-void main() async {
-  final AppUtils utils = Get.put(AppUtils());
+Future<void> main() async {
+  final AppUtils utils = Get.put(AppUtils(), permanent: true);
   await utils.initPrefs();
-  Get.put(ApiController());
+  Get.put(ApiController(), permanent: true);
   runApp(const MyApp());
 }
 
@@ -24,7 +25,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SplashScreen()),
-        GetPage(name: '/main', page: () => const MainScreen()),
+        GetPage(
+          name: '/main',
+          page: () => const MainScreen(),
+          binding: MainBinding(),
+        ),
         GetPage(
           name: '/search',
           page: () => const SearchLocation(),

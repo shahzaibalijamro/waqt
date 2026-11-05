@@ -14,7 +14,7 @@ class AppUtils extends GetxController {
     Future.delayed(Duration.zero, () async {
       await initPrefs();
     });
-    print("ON INIT");
+    print('ON INIT');
   }
 
   String? getStringFromPrefs({required String key}) {

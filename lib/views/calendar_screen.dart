@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
-import 'package:waqt/controllers/api_controller.dart';
-import 'package:waqt/views/main_screen.dart';
+import 'package:waqt/constants/enums.dart';
+import 'package:waqt/controllers/settings_controller.dart';
+import 'package:waqt/main.dart';
 import 'package:waqt/widgets/appbar.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -15,13 +16,13 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  ApiController controller = Get.find<ApiController>();
+  SettingsController controller = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
-        MyAppBar(screen: Screen.calendar, context: context),
+        MyAppBar(screen: Screen.calendar),
         SizedBox(height: vh * 16),
         Container(
           padding: EdgeInsets.symmetric(vertical: vh * 5),
