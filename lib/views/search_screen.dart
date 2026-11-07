@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/enums.dart';
+import 'package:waqt/controllers/main_controller.dart';
 import 'package:waqt/controllers/settings_controller.dart';
 import 'package:waqt/widgets/appbar.dart';
 
@@ -17,20 +18,28 @@ class SearchLocation extends StatefulWidget {
 class _SearchLocationState extends State<SearchLocation> {
   final TextEditingController searchInputController = TextEditingController();
   final SettingsController controller = Get.find<SettingsController>();
+  final MainController mainController = Get.find<MainController>();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchInputController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = (screenWidth * 0.05).clamp(16.0, 24.0).toDouble();
-    final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsets.symmetric(
+            horizontal: mainController.horizontalPadding.value!,
+          ),
           child: Column(
             children: [
               MyAppBar(screen: Screen.search),
-              SizedBox(height: vh * 24),
+              SizedBox(height: mainController.vh.value! * 24),
               TextField(
                 style: GoogleFonts.manrope(
                   color: AppColors.primaryText,

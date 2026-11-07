@@ -21,13 +21,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   SettingsController controller = Get.find<SettingsController>();
+  MainController mainController = Get.find<MainController>();
   @override
   Widget build(BuildContext context) {
-    final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
     return ListView(
       children: [
         MyAppBar(screen: Screen.home),
-        SizedBox(height: vh * 6),
+        SizedBox(height: mainController.vh.value! * 6),
         Obx(
           () => InkWell(
             hoverColor: Colors.transparent,
@@ -63,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
-                    Skeleton.shade(
-                      child: const Icon(
+                    const Skeleton.shade(
+                      child: Icon(
                         PhosphorIconsRegular.caretDown,
                         color: AppColors.selectedColor,
                       ),
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        SizedBox(height: vh * 2),
+        SizedBox(height: mainController.vh.value! * 2),
         Row(
           mainAxisSize: MainAxisSize.max,
           spacing: 8,
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        SizedBox(height: vh * 16),
+        SizedBox(height: mainController.vh.value! * 16),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(20),
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 1,
                 ),
               ),
-              SizedBox(height: vh * 9),
+              SizedBox(height: mainController.vh.value! * 9),
               Text(
                 'Maghrib',
                 style: GoogleFonts.manrope(
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 1,
                 ),
               ),
-              SizedBox(height: vh * 9),
+              SizedBox(height: mainController.vh.value! * 9),
 
               Text(
                 '5:48 PM',
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 1,
                 ),
               ),
-              SizedBox(height: vh * 12),
+              SizedBox(height: mainController.vh.value! * 12),
 
               Text(
                 'Begins in 01ʰ 24m',
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        SizedBox(height: vh * 16),
+        SizedBox(height: mainController.vh.value! * 16),
         Row(
           mainAxisSize: MainAxisSize.max,
           spacing: 8,
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        SizedBox(height: vh * 12),
+        SizedBox(height: mainController.vh.value! * 12),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),

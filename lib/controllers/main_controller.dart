@@ -8,13 +8,11 @@ import 'package:waqt/views/settings_screen.dart';
 
 class MainController extends GetxController {
   RxInt currentIndex = 0.obs;
-
   final List<Widget> screens = [
     const HomeScreen(),
     const CalendarScreen(),
     const SettingsScreen(),
   ];
-
   final List<Map<String, dynamic>> navItems = const [
     {
       'icon': Icon(PhosphorIconsRegular.house),
@@ -42,8 +40,14 @@ class MainController extends GetxController {
       'index': 2,
     },
   ];
-
   void switchScreens(int index) {
     currentIndex.value = index;
   }
+
+  RxnDouble screenWidth = RxnDouble();
+  RxnDouble horizontalPadding = RxnDouble();
+  RxnDouble vh = RxnDouble();
+  void setVh(double val) => vh.value = val;
+  void setScreenWidth(double val) => screenWidth.value = val;
+  void setHorizontalPadding(double val) => horizontalPadding.value = val;
 }

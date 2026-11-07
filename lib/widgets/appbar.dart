@@ -6,12 +6,13 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/enums.dart';
 import 'package:waqt/controllers/api_controller.dart';
-import 'package:waqt/main.dart';
+import 'package:waqt/controllers/main_controller.dart';
 
 class MyAppBar extends StatelessWidget {
   final Screen screen;
   MyAppBar({super.key, required this.screen});
   final ApiController controller = Get.find<ApiController>();
+  final MainController mainController = Get.find<MainController>();
 
   Widget _homeAppBar(double vh) {
     return Padding(
@@ -66,13 +67,13 @@ class MyAppBar extends StatelessWidget {
                         spacing: 12,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(
+                          const Icon(
                             CupertinoIcons.wifi_exclamationmark,
                             color: Colors.red,
                             size: 25,
                           ),
                           Text(
-                            "No Internet",
+                            'No Internet',
                             style: GoogleFonts.manrope(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
@@ -83,7 +84,7 @@ class MyAppBar extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -92,7 +93,6 @@ class MyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vh = MediaQuery.of(context).size.height * 0.01725 / 16;
-    return _homeAppBar(vh);
+    return _homeAppBar(mainController.vh.value!);
   }
 }

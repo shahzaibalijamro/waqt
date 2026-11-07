@@ -14,13 +14,18 @@ class _MainScreenState extends State<MainScreen> {
   MainController controller = Get.find<MainController>();
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalPadding = (screenWidth * 0.05).clamp(16.0, 24.0).toDouble();
+    controller.setScreenWidth(MediaQuery.of(context).size.width);
+    controller.setHorizontalPadding(
+      (controller.screenWidth.value! * 0.05).clamp(16.0, 24.0).toDouble(),
+    );
+    controller.setVh(MediaQuery.of(context).size.height * 0.01725 / 16);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: horizontalPadding),
+          padding: EdgeInsetsGeometry.symmetric(
+            horizontal: controller.horizontalPadding.value!,
+          ),
           child: Obx(() => controller.screens[controller.currentIndex.value]),
         ),
       ),
