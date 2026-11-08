@@ -40,6 +40,13 @@ class AppUtils extends GetxController {
     return await prefs!.setString(key, value);
   }
 
+  Future<bool> storeStringListInPrefs({
+    required String key,
+    required List<String> value,
+  }) async {
+    return await prefs!.setStringList(key, value);
+  }
+
   Future<bool> storeIntInPrefs({
     required String key,
     required int value,
