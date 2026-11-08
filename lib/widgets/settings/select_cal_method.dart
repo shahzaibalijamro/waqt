@@ -128,7 +128,7 @@ class _SelectCalMethodBottomSheetState
               fontWeight: FontWeight.w500,
             ),
             maxLines: 1,
-            textAlignVertical: const TextAlignVertical(y: -0.1),
+            textAlignVertical: const TextAlignVertical(y: 0),
             focusNode: focusNode,
             onTapOutside: (event) => focusNode.unfocus(),
             controller: searchInputController,
@@ -205,7 +205,7 @@ class _SelectCalMethodBottomSheetState
                   )
                 : controller.isOffline.value
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 80),
+                    padding: const EdgeInsets.symmetric(vertical: 80),
                     child: Center(
                       child: Column(
                         spacing: 20,
@@ -214,7 +214,7 @@ class _SelectCalMethodBottomSheetState
                             spacing: 12,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 CupertinoIcons.wifi_exclamationmark,
                                 color: Colors.red,
                                 size: 25,
@@ -236,7 +236,7 @@ class _SelectCalMethodBottomSheetState
                                 color: AppColors.selectedColor,
                                 borderRadius: BorderRadius.circular(18),
                               ),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 15,
                                 vertical: 5,
                               ),
@@ -256,7 +256,7 @@ class _SelectCalMethodBottomSheetState
                   )
                 : controller.errorMsg.value != null
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 80),
+                    padding: const EdgeInsets.symmetric(vertical: 80),
                     child: Center(
                       child: Column(
                         spacing: 20,
@@ -285,7 +285,7 @@ class _SelectCalMethodBottomSheetState
                                 color: AppColors.selectedColor,
                                 borderRadius: BorderRadius.circular(18),
                               ),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 10,
                               ),
@@ -305,7 +305,7 @@ class _SelectCalMethodBottomSheetState
                   )
                 : currentList.isEmpty
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 80),
+                    padding: const EdgeInsets.symmetric(vertical: 80),
                     child: Center(
                       child: Column(
                         spacing: 20,
@@ -316,7 +316,7 @@ class _SelectCalMethodBottomSheetState
                             children: [
                               Text(
                                 isSearchList
-                                    ? "No methods found"
+                                    ? 'No methods found'
                                     : "Couldn't load calculation methods",
                                 style: GoogleFonts.manrope(
                                   fontWeight: FontWeight.w600,
@@ -334,7 +334,7 @@ class _SelectCalMethodBottomSheetState
                                       color: AppColors.selectedColor,
                                       borderRadius: BorderRadius.circular(18),
                                     ),
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                       horizontal: 20,
                                       vertical: 10,
                                     ),

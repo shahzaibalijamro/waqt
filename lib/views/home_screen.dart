@@ -8,7 +8,6 @@ import 'package:waqt/constants/enums.dart';
 import 'package:waqt/constants/routes.dart';
 import 'package:waqt/controllers/main_controller.dart';
 import 'package:waqt/controllers/settings_controller.dart';
-import 'package:waqt/main.dart';
 
 import '../widgets/appbar.dart';
 
@@ -33,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
             hoverColor: Colors.transparent,
             onTap: () {
               if (controller.isLoading.value) return;
+              controller.filterPopularCities();
+
               Get.toNamed(AppRoutes.search);
             },
             child: Padding(
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        '${controller.location.value.name}, ${controller.location.value.country}',
+                        '${controller.location.value!.name}, ${controller.location.value!.country}',
                         style: GoogleFonts.manrope(
                           color: AppColors.primaryText,
                           fontSize: 17,

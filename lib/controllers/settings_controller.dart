@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:waqt/constants/enums.dart';
+import 'package:waqt/constants/popular_locations.dart';
 import 'package:waqt/constants/prefs_keys.dart';
 import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/models/api_response_model.dart';
 import 'package:waqt/models/calc_method_model.dart';
 import 'package:waqt/models/location_model.dart';
 import 'package:waqt/utils/app_utils.dart';
+import 'package:waqt/views/settings_screen.dart';
 import 'package:waqt/widgets/bottom_sheet.dart';
 
 class SettingsController extends GetxController {
@@ -21,6 +23,7 @@ class SettingsController extends GetxController {
     longitude: 67.01040,
     country: 'Pakistan',
   ).obs;
+  Rxn<Location> recentLocation = Rxn();
   RxBool isLoading = false.obs;
   RxList<CalculationMethod> calcMethods = <CalculationMethod>[].obs;
   RxBool isOffline = false.obs;
@@ -34,141 +37,21 @@ class SettingsController extends GetxController {
   Rx<AsrSchool> selectedSchool = AsrSchool.hanafi.obs;
   Rx<String> searchQuery = ''.obs;
   RxList<CalculationMethod> searchResults = <CalculationMethod>[].obs;
-  Rx<Locations> popularLocations = Locations(
-    locations: [
-      // Pakistan
-      Location(
-        id: 1174872,
-        name: 'Karachi',
-        latitude: 24.86080,
-        longitude: 67.01040,
-        country: 'Pakistan',
-      ),
-      Location(
-        id: 1172451,
-        name: 'Lahore',
-        latitude: 31.55800,
-        longitude: 74.35071,
-        country: 'Pakistan',
-      ),
-      Location(
-        id: 1176615,
-        name: 'Islamabad',
-        latitude: 33.72148,
-        longitude: 73.04329,
-        country: 'Pakistan',
-      ),
-      Location(
-        id: 1168197,
-        name: 'Peshawar',
-        latitude: 34.00800,
-        longitude: 71.57849,
-        country: 'Pakistan',
-      ),
-
-      // Saudi Arabia
-      Location(
-        id: 104515,
-        name: 'Makkah',
-        latitude: 21.42664,
-        longitude: 39.82563,
-        country: 'Saudi Arabia',
-      ),
-      Location(
-        id: 109223,
-        name: 'Madinah',
-        latitude: 24.46861,
-        longitude: 39.61417,
-        country: 'Saudi Arabia',
-      ),
-
-      // United Arab Emirates
-      Location(
-        id: 292223,
-        name: 'Dubai',
-        latitude: 25.07725,
-        longitude: 55.30927,
-        country: 'United Arab Emirates',
-      ),
-
-      // Türkiye
-      Location(
-        id: 745044,
-        name: 'Istanbul',
-        latitude: 41.01384,
-        longitude: 28.94966,
-        country: 'Türkiye',
-      ),
-
-      // Malaysia
-      Location(
-        id: 1733046,
-        name: 'Kuala Lumpur',
-        latitude: 3.14309,
-        longitude: 101.68653,
-        country: 'Malaysia',
-      ),
-
-      // Singapore
-      Location(
-        id: 1880252,
-        name: 'Singapore',
-        latitude: 1.28967,
-        longitude: 103.85007,
-        country: 'Singapore',
-      ),
-
-      // Egypt
-      Location(
-        id: 360630,
-        name: 'Cairo',
-        latitude: 30.06263,
-        longitude: 31.24967,
-        country: 'Egypt',
-      ),
-
-      // United Kingdom
-      Location(
-        id: 2643743,
-        name: 'London',
-        latitude: 51.50853,
-        longitude: -0.12574,
-        country: 'United Kingdom',
-      ),
-
-      // Canada
-      Location(
-        id: 6167865,
-        name: 'Toronto',
-        latitude: 43.65333,
-        longitude: -79.38389,
-        country: 'Canada',
-      ),
-
-      // United States
-      Location(
-        id: 5128581,
-        name: 'New York',
-        latitude: 40.71427,
-        longitude: -74.00597,
-        country: 'United States',
-      ),
-    ],
-  ).obs;
+  Rx<Locations> popularLocations = popularLocationsList.obs;
+  Rx<Locations> searchedLocations = Locations(locations: []).obs;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-    print(AppKeys.notifications);
-
     fetchStoredSettings();
   }
 
   void fetchStoredSettings() {
-    print(AppKeys.notifications);
     final String? storedLocation = utils.getStringFromPrefs(
       key: AppKeys.location,
+    );
+    final String? lastLocation = utils.getStringFromPrefs(
+      key: AppKeys.recentCalcMethod,
     );
     final String? storedMethod = utils.getStringFromPrefs(
       key: AppKeys.calcMethod,
@@ -183,8 +66,12 @@ class SettingsController extends GetxController {
     final String? cachedMethods = utils.getStringFromPrefs(
       key: AppKeys.cachedMethods,
     );
-    print("here?");
-    // if (storedLocation != null) location.value = storedLocation;
+    if (storedLocation != null) {
+      location.value = Location.fromJson(jsonDecode(storedLocation));
+    }
+    if (lastLocation != null) {
+      recentLocation.value = Location.fromJson(jsonDecode(lastLocation));
+    }
     if (storedMethod != null) {
       selectedMethod.value = CalculationMethod.fromJson(
         jsonDecode(storedMethod),
@@ -201,7 +88,6 @@ class SettingsController extends GetxController {
       }
     }
     if (storedSchool != null) {
-      print(storedSchool);
       selectedSchool.value = storedSchool == AsrSchool.hanafi.id
           ? AsrSchool.hanafi
           : AsrSchool.shafi;
@@ -217,8 +103,26 @@ class SettingsController extends GetxController {
           : TimeFormat.twelveHour;
     }
     if (storedNotificationPreference != null) {
-      print(storedNotificationPreference);
       notificationsEnabled.value = storedNotificationPreference;
+    }
+  }
+
+  void filterPopularCities() {
+    searchQuery.value = '';
+    // if popular cities has the selected city, we remove it since it would already be present in the recent location section of the UI
+    if (popularLocations.value.locations.any(
+      (element) => element.id == location.value.id,
+    )) {
+      final List<Location> filteredLocations = [];
+      for (final element in popularLocations.value.locations) {
+        if (element.id != location.value.id) {
+          print("this is ok");
+          filteredLocations.add(element);
+        } else {
+          print("this one is already selected");
+        }
+      }
+      popularLocations.value = Locations(locations: filteredLocations);
     }
   }
 
@@ -228,7 +132,7 @@ class SettingsController extends GetxController {
     // unsuccessfull request
     if (response.statusCode != 200) {
       // network error
-      if (response.message == "No internet!") {
+      if (response.message == 'No internet!') {
         isOffline.value = true;
         isLoading.value = false;
         return;
@@ -254,6 +158,7 @@ class SettingsController extends GetxController {
   }
 
   void showCalculationMethodBottomSheet(Widget child) async {
+    searchQuery.value = '';
     MyBottomSheet(child: child, scroll: true);
     if (calcMethods.value.isNotEmpty) return;
     await fetchCalculationMethods();
@@ -273,6 +178,19 @@ class SettingsController extends GetxController {
 
   void showTimeFormatBottomSheet(Widget child) {
     MyBottomSheet(child: child);
+  }
+
+  void updateLocation(Location loc) {
+    print(loc.name);
+    recentLocation.value = location.value;
+    utils.storeStringInPrefs(
+      key: AppKeys.recentCalcMethod,
+      value: recentLocation.value!.toJson(),
+    );
+    location.value = loc;
+    print(location.value.toJson());
+    utils.storeStringInPrefs(key: AppKeys.location, value: loc.toJson());
+    Get.back();
   }
 
   void updateCalculationMethod(CalculationMethod method) {
@@ -318,6 +236,46 @@ class SettingsController extends GetxController {
               element.name.toLowerCase().contains(query.trim().toLowerCase()),
         )
         .toList();
+  }
+
+  void searchLocations(String query) async {
+    searchQuery.value = query;
+    if (searchQuery.value.length < 3) {
+      searchedLocations.value = Locations(
+        locations: popularLocations.value.locations
+            .where(
+              (element) =>
+                  element.name.toLowerCase().contains(
+                    query.trim().toLowerCase(),
+                  ) ||
+                  element.country.toLowerCase().contains(
+                    query.trim().toLowerCase(),
+                  ),
+            )
+            .toList(),
+      );
+    } else {
+      isLoading.value = true;
+      final ApiResponse response = await apiController.fetchLocationsViaApi(
+        query,
+      );
+      // unsuccessfull request
+      if (response.statusCode != 200) {
+        // network error
+        if (response.message == 'No internet!') {
+          isOffline.value = true;
+          isLoading.value = false;
+          return;
+        }
+        // server error
+        errorMsg.value = response.message;
+        isLoading.value = false;
+        return;
+      }
+      searchedLocations.value = response.data;
+      isLoading.value = false;
+      errorMsg.value = null;
+    }
   }
 }
 

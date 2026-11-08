@@ -80,7 +80,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
             Obx(
               () => Text(
-                '${controller.location.value.name}, ${controller.location.value.country}',
+                '${controller.location.value!.name}, ${controller.location.value!.country}',
                 style: GoogleFonts.manrope(
                   color: AppColors.primaryText,
                   fontSize: 17,

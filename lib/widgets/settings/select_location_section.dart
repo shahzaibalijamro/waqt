@@ -7,16 +7,13 @@ import 'package:waqt/constants/routes.dart';
 import 'package:waqt/controllers/main_controller.dart';
 import 'package:waqt/controllers/settings_controller.dart';
 
-class SelectLocation extends StatefulWidget {
-  const new({super.key});
+class SelectLocation extends StatelessWidget {
+  SelectLocation({super.key});
 
-  @override
-  State<SelectLocation> createState() => _SelectLocationState();
-}
+  final MainController controller = Get.find<MainController>();
 
-class _SelectLocationState extends State<SelectLocation> {
-  MainController controller = Get.find<MainController>();
-  SettingsController settingsController = Get.find<SettingsController>();
+  final SettingsController settingsController = Get.find<SettingsController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +30,10 @@ class _SelectLocationState extends State<SelectLocation> {
         ),
         SizedBox(height: controller.vh.value! * 4),
         InkWell(
-          onTap: () => Get.toNamed(AppRoutes.search),
+          onTap: () {
+            settingsController.filterPopularCities();
+            Get.toNamed(AppRoutes.search);
+          },
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -59,7 +59,7 @@ class _SelectLocationState extends State<SelectLocation> {
                     children: [
                       Obx(
                         () => Text(
-                          '${settingsController.location.value.name}, ${settingsController.location.value.country}',
+                          '${settingsController.location.value!.name}, ${settingsController.location.value!.country}',
                           style: GoogleFonts.manrope(
                             color: AppColors.primaryText,
                             fontSize: 17,
