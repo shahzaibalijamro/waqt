@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:waqt/constants/colors.dart';
 
-Future<dynamic> MyBottomSheet({required Widget child}) {
+Future<dynamic> MyBottomSheet({required Widget child, bool scroll = false}) {
   return Get.bottomSheet(
+    isScrollControlled: scroll,
     Column(
       mainAxisSize: MainAxisSize.min,
       children: [

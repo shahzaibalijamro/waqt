@@ -45,9 +45,11 @@ class MainController extends GetxController {
   }
 
   RxnDouble screenWidth = RxnDouble();
+  RxnDouble screenHeight = RxnDouble();
   RxnDouble horizontalPadding = RxnDouble();
   RxnDouble vh = RxnDouble();
   void setVh(double val) => vh.value = val;
   void setScreenWidth(double val) => screenWidth.value = val;
+  void setScreenHeight(double val) => screenHeight.value = val;
   void setHorizontalPadding(double val) => horizontalPadding.value = val;
 }

@@ -15,6 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     controller.setScreenWidth(MediaQuery.of(context).size.width);
+    controller.setScreenHeight(MediaQuery.of(context).size.height);
     controller.setHorizontalPadding(
       (controller.screenWidth.value! * 0.05).clamp(16.0, 24.0).toDouble(),
     );

@@ -42,13 +42,15 @@ class SelectCalculationMethod extends StatelessWidget {
                     height: 1,
                   ),
                 ),
-                Text(
-                  controller.selectedMethod.value.name,
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    height: 1,
+                Obx(
+                  () => Text(
+                    controller.selectedMethod.value.name,
+                    style: GoogleFonts.manrope(
+                      color: AppColors.mutedText,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1,
+                    ),
                   ),
                 ),
               ],
@@ -78,13 +80,21 @@ class _SelectCalMethodBottomSheetState
     extends State<SelectCalMethodBottomSheet> {
   final SettingsController controller = Get.find<SettingsController>();
   final MainController mainController = Get.find<MainController>();
+  final FocusNode focusNode = FocusNode();
   final TextEditingController searchInputController = TextEditingController();
+
+  List<CalculationMethod> searchList = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: mainController.horizontalPadding.value!,
+      padding: EdgeInsets.only(
+        left: mainController.horizontalPadding.value!,
+        right: mainController.horizontalPadding.value!,
+        bottom: focusNode.hasFocus
+            ? MediaQuery.of(context).viewInsets.bottom
+            : 0,
       ),
       decoration: const BoxDecoration(),
       child: Column(
@@ -111,7 +121,7 @@ class _SelectCalMethodBottomSheetState
           ),
           const SizedBox(height: 12),
           TextField(
-            enabled: controller.isLoading.value,
+            enabled: !controller.isLoading.value,
             style: GoogleFonts.manrope(
               color: AppColors.mutedText,
               fontSize: 15,
@@ -119,8 +129,10 @@ class _SelectCalMethodBottomSheetState
             ),
             maxLines: 1,
             textAlignVertical: const TextAlignVertical(y: -0.1),
-
+            focusNode: focusNode,
+            onTapOutside: (event) => focusNode.unfocus(),
             controller: searchInputController,
+            onChanged: (value) => controller.searchMethods(value),
             cursorColor: AppColors.primaryText,
             cursorHeight: 15,
             textInputAction: TextInputAction.search,
@@ -175,11 +187,16 @@ class _SelectCalMethodBottomSheetState
               ),
             ),
           ),
-          SizedBox(height: mainController.vh.value! * 20),
-          Obx(
-            () => controller.isLoading.value
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 100),
+          SizedBox(height: mainController.vh.value! * 4),
+          Obx(() {
+            final List<CalculationMethod> currentList =
+                controller.searchQuery.value.isEmpty
+                ? controller.calcMethods.value
+                : controller.searchResults.value;
+            final isSearchList = controller.searchQuery.value.isNotEmpty;
+            return controller.isLoading.value
+                ? SizedBox(
+                    height: mainController.screenHeight.value! / 3,
                     child: const Center(
                       child: CircularProgressIndicator(
                         color: AppColors.selectedColor,
@@ -188,13 +205,14 @@ class _SelectCalMethodBottomSheetState
                   )
                 : controller.isOffline.value
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 100),
+                    padding: EdgeInsets.symmetric(vertical: 80),
                     child: Center(
                       child: Column(
+                        spacing: 20,
                         children: [
                           Row(
                             spacing: 12,
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 CupertinoIcons.wifi_exclamationmark,
@@ -219,8 +237,8 @@ class _SelectCalMethodBottomSheetState
                                 borderRadius: BorderRadius.circular(18),
                               ),
                               padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
+                                horizontal: 15,
+                                vertical: 5,
                               ),
                               child: Text(
                                 'Retry?',
@@ -238,20 +256,24 @@ class _SelectCalMethodBottomSheetState
                   )
                 : controller.errorMsg.value != null
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 100),
+                    padding: EdgeInsets.symmetric(vertical: 80),
                     child: Center(
                       child: Column(
+                        spacing: 20,
                         children: [
                           Row(
                             spacing: 12,
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                controller.errorMsg.value!,
-                                style: GoogleFonts.manrope(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: AppColors.primaryText,
+                              Expanded(
+                                child: Text(
+                                  controller.errorMsg.value!,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.manrope(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: AppColors.primaryText,
+                                  ),
                                 ),
                               ),
                             ],
@@ -281,87 +303,157 @@ class _SelectCalMethodBottomSheetState
                       ),
                     ),
                   )
-                : Column(
-                    children: controller.calcMethods
-                        .map(
-                          (element) => CalculationMethodListTile(
-                            selectedMethod: controller.selectedMethod.value.id,
-                            method: element,
+                : currentList.isEmpty
+                ? Padding(
+                    padding: EdgeInsets.symmetric(vertical: 80),
+                    child: Center(
+                      child: Column(
+                        spacing: 20,
+                        children: [
+                          Row(
+                            spacing: 12,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                isSearchList
+                                    ? "No methods found"
+                                    : "Couldn't load calculation methods",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: AppColors.primaryText,
+                                ),
+                              ),
+                            ],
                           ),
-                        )
-                        .toList(),
-                  ),
-          ),
+                          !isSearchList
+                              ? InkWell(
+                                  onTap: controller.fetchCalculationMethods,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.selectedColor,
+                                      borderRadius: BorderRadius.circular(18),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                    child: Text(
+                                      'Retry?',
+                                      style: GoogleFonts.manrope(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                        ],
+                      ),
+                    ),
+                  )
+                : CalculationMethodsList();
+          }),
         ],
       ),
     );
   }
+}
 
-  Widget CalculationMethodListTile({
-    required CalculationMethod method,
-    required int selectedMethod,
-  }) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        border: BoxBorder.fromLTRB(
-          bottom: BorderSide(
-            color: AppColors.mutedText.withValues(alpha: 0.3),
-            width: 1,
+class CalculationMethodsList extends StatelessWidget {
+  CalculationMethodsList({super.key});
+  final SettingsController controller = Get.find<SettingsController>();
+  final MainController mainController = Get.find<MainController>();
+
+  bool isSelected(CalculationMethod method) =>
+      method.id == controller.selectedMethod.value.id;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: mainController.vh.value! * 4),
+        SizedBox(
+          height: mainController.screenHeight.value! / 3,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Obx(() {
+              final List<CalculationMethod> currentList =
+                  controller.searchQuery.value.isEmpty
+                  ? controller.calcMethods.value
+                  : controller.searchResults.value;
+              return Column(
+                children: [
+                  if (currentList.isNotEmpty)
+                    for (int i = 0; i < currentList.length; i++)
+                      InkWell(
+                        onTap: () =>
+                            controller.updateCalculationMethod(currentList[i]),
+                        child: Container(
+                          padding: const EdgeInsets.only(bottom: 16, top: 16),
+                          decoration: BoxDecoration(
+                            border: i != (currentList.length - 1)
+                                ? BoxBorder.fromLTRB(
+                                    bottom: BorderSide(
+                                      color: AppColors.mutedText.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                      width: 1,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            spacing: 14,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: isSelected(currentList[i])
+                                      ? AppColors.selectedColor
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: !isSelected(currentList[i])
+                                      ? BoxBorder.all(
+                                          color: AppColors.selectedColor,
+                                          width: 1,
+                                        )
+                                      : null,
+                                ),
+                                child: isSelected(currentList[i])
+                                    ? const Icon(
+                                        PhosphorIconsBold.check,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.white,
+                                        size: 20,
+                                      )
+                                    : null,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  currentList[i].name,
+                                  style: GoogleFonts.manrope(
+                                    color: AppColors.primaryText,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    height: 1,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                ],
+              );
+            }),
           ),
         ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        spacing: 14,
-        children: [
-          Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              color: AppColors.selectedColor,
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: selectedMethod == method.id
-                ? const Icon(
-                    PhosphorIconsBold.check,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.white,
-                    size: 20,
-                  )
-                : null,
-          ),
-          Expanded(
-            child: Text(
-              method.name,
-              style: GoogleFonts.manrope(
-                color: AppColors.primaryText,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                // height: 1,
-              ),
-            ),
-          ),
-          if (selectedMethod == method.id) ...[
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: AppColors.selectedColor,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Text(
-                'SELECTED',
-                style: GoogleFonts.manrope(
-                  color: AppColors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ],
-      ),
+        SizedBox(height: mainController.vh.value! * 10),
+      ],
     );
   }
 }

@@ -71,7 +71,7 @@ class _SelectLocationState extends State<SelectLocation> {
                       Text(
                         'Tap to change city',
                         style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
+                          color: AppColors.mutedText,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           height: 1,

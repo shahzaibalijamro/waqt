@@ -44,15 +44,17 @@ class SelectAsrCalculationSchool extends StatelessWidget {
                     height: 1,
                   ),
                 ),
-                Text(
-                  capitalize(
-                    controller.selectedSchool.toString().split('.')[1],
-                  ),
-                  style: GoogleFonts.manrope(
-                    color: AppColors.primaryText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    height: 1,
+                Obx(
+                  () => Text(
+                    capitalize(
+                      controller.selectedSchool.toString().split('.')[1],
+                    ),
+                    style: GoogleFonts.manrope(
+                      color: AppColors.mutedText,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1,
+                    ),
                   ),
                 ),
               ],
@@ -74,8 +76,8 @@ class SelectAsrCalcSchoolBottomSheet extends StatelessWidget {
   SelectAsrCalcSchoolBottomSheet({super.key});
   final SettingsController controller = Get.find<SettingsController>();
   final MainController mainController = Get.find<MainController>();
-  bool isSelected(School school) =>
-      controller.selectedSchool.toString() == school.toString();
+  bool isSelected(AsrSchool school) =>
+      controller.selectedSchool.value.id == school.id;
 
   @override
   Widget build(BuildContext context) {
@@ -102,145 +104,150 @@ class SelectAsrCalcSchoolBottomSheet extends StatelessWidget {
             'Choose the juristic school used to calculate Asr time. This affects Asr only.',
             style: GoogleFonts.manrope(
               color: AppColors.mutedText,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              height: 1.3,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 1.5,
             ),
           ),
-          SizedBox(height: mainController.vh.value! * 20),
+          SizedBox(height: mainController.vh.value! * 4),
           Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                spacing: 14,
-                children: [
-                  Text(
-                    '1.',
-                    style: GoogleFonts.manrope(
-                      color: AppColors.primaryText,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      height: 1,
-                    ),
+            children: AsrSchool.values.map((school) {
+              return InkWell(
+                onTap: () => controller.updateAsrSchool(school),
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 16, top: 16),
+                  decoration: BoxDecoration(
+                    border: school.id == 0
+                        ? BoxBorder.fromLTRB(
+                            bottom: BorderSide(
+                              color: AppColors.mutedText.withValues(alpha: 0.3),
+                              width: 1,
+                            ),
+                          )
+                        : null,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    spacing: 14,
                     children: [
-                      Text(
-                        'Hanafi',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          height: 1,
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: isSelected(school)
+                              ? AppColors.selectedColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(50),
+                          border: !isSelected(school)
+                              ? BoxBorder.all(
+                                  color: AppColors.selectedColor,
+                                  width: 1,
+                                )
+                              : null,
                         ),
+                        child: isSelected(school)
+                            ? const Icon(
+                                PhosphorIconsBold.check,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.white,
+                                size: 20,
+                              )
+                            : null,
                       ),
-                      Text(
-                        'Example: 05:30 PM',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 1,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 2,
+                          children: [
+                            Text(
+                              school.displayName,
+                              style: GoogleFonts.manrope(
+                                color: AppColors.primaryText,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                height: 1,
+                              ),
+                            ),
+                            Text(
+                              school.description,
+                              style: GoogleFonts.manrope(
+                                color: AppColors.mutedText,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  if (isSelected(School.hanafi)) ...[
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.selectedColor,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Text(
-                        'SELECTED',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-              Container(
-                width: double.infinity,
-                height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                color: AppColors.mutedText.withValues(alpha: 0.3),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                spacing: 14,
-                children: [
-                  Text(
-                    '2.',
-                    style: GoogleFonts.manrope(
-                      color: AppColors.primaryText,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      height: 1,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        '24-hour',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          height: 1,
-                        ),
-                      ),
-                      Text(
-                        'Example: 17:30 PM',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (isSelected(School.shafi)) ...[
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.selectedColor,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Text(
-                        'SELECTED',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ],
+                ),
+              );
+            }).toList(),
           ),
-          SizedBox(height: mainController.vh.value! * 30),
+          SizedBox(height: mainController.vh.value! * 10),
         ],
       ),
     );
   }
 }
+
+// [
+
+//               Container(
+//                 width: double.infinity,
+//                 height: 1,
+//                 margin: const EdgeInsets.symmetric(vertical: 16),
+//                 color: ,
+//               ),
+//               Row(
+//                 mainAxisSize: MainAxisSize.max,
+//                 spacing: 14,
+//                 children: [
+//                   Container(
+//                     height: 30,
+//                     width: 30,
+//                     decoration: BoxDecoration(
+//                       color: AppColors.selectedColor,
+//                       borderRadius: BorderRadius.circular(50),
+//                     ),
+//                     child: isSelected(AsrSchool.hanafi)
+//                         ? const Icon(
+//                             PhosphorIconsBold.check,
+//                             fontWeight: FontWeight.w700,
+//                             color: AppColors.white,
+//                             size: 20,
+//                           )
+//                         : null,
+//                   ),
+
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       spacing: 2,
+//                       children: [
+//                         Text(
+//                           AsrSchool.hanafi.displayName,
+//                           style: GoogleFonts.manrope(
+//                             color: AppColors.primaryText,
+//                             fontSize: 16,
+//                             fontWeight: FontWeight.w600,
+//                             height: 1,
+//                           ),
+//                         ),
+//                         Text(
+//                           ,
+//                           style: GoogleFonts.manrope(
+//                             color: AppColors.mutedText,
+//                             fontSize: 14,
+//                             fontWeight: FontWeight.w500,
+//                             height: 1.2,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],

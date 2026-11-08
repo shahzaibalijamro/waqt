@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:waqt/constants/endpoints.dart';
-import 'package:waqt/models/api_response.dart';
+import 'package:waqt/models/api_response_model.dart';
 import 'package:waqt/models/calc_method_model.dart';
 import 'package:waqt/utils/app_utils.dart';
 import 'package:http/http.dart' as http;

@@ -6,18 +6,44 @@ class AppUtils extends GetxController {
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
+    print("PREFS INITIALIZED!");
   }
 
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration.zero, () async {
-      await initPrefs();
-    });
-    print('ON INIT');
   }
 
   String? getStringFromPrefs({required String key}) {
     return prefs!.getString(key);
+  }
+
+  int? getIntFromPrefs({required String key}) {
+    return prefs!.getInt(key);
+  }
+
+  bool? getBoolFromPrefs({required String key}) {
+    return prefs!.getBool(key);
+  }
+
+  Future<bool> storeBoolInPrefs({
+    required String key,
+    required bool value,
+  }) async {
+    return (await prefs!.setBool(key, value));
+  }
+
+  Future<bool> storeStringInPrefs({
+    required String key,
+    required String value,
+  }) async {
+    return await prefs!.setString(key, value);
+  }
+
+  Future<bool> storeIntInPrefs({
+    required String key,
+    required int value,
+  }) async {
+    return (await prefs!.setInt(key, value));
   }
 }
