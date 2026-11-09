@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        '${controller.location.value!.name}, ${controller.location.value!.country}',
+                        '${controller.location.value.name}, ${controller.location.value.country}',
                         style: GoogleFonts.manrope(
                           color: AppColors.primaryText,
                           fontSize: 17,
