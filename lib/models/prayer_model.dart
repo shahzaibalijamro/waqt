@@ -285,3 +285,11 @@ class Timings {
     'Lastthird': lastthird,
   };
 }
+
+class NextPrayer {
+  final String name;
+  final String time;
+  final String beginsIn;
+
+  NextPrayer({required this.name, required this.time, required this.beginsIn});
+}

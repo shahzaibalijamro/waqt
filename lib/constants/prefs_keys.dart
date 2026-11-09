@@ -6,4 +6,5 @@ class AppKeys {
   static const String asrCalc = 'asrCalc';
   static const String timeFormat = 'format';
   static const String notifications = 'notify';
+  static const String prayerData = 'prayerData';
 }

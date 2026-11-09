@@ -6,6 +6,7 @@ import 'package:waqt/constants/endpoints.dart';
 import 'package:waqt/models/api_response_model.dart';
 import 'package:waqt/models/calc_method_model.dart';
 import 'package:waqt/models/location_model.dart';
+import 'package:waqt/models/prayer_model.dart';
 import 'package:waqt/utils/app_utils.dart';
 import 'package:http/http.dart' as http;
 
@@ -59,6 +60,31 @@ class ApiController extends GetxController {
       );
       final Locations locations = Locations.fromJson(jsonDecode(response.body));
       return ApiResponse(message: 'Success', statusCode: 200, data: locations);
+    } catch (e) {
+      print(e);
+      return ApiResponse(message: 'Something went wrong!', statusCode: 500);
+    }
+  }
+
+  Future<ApiResponse> fetchPrayerData(
+    String date,
+    double latitude,
+    double longitude,
+    int method,
+    int school,
+  ) async {
+    await isOnline();
+    if (isOffline.value) return ApiResponse(message: 'No internet!');
+    try {
+      final url = Uri.parse(
+        '${AppEndpoints.prayerData}/$date?latitude=$latitude&longitude=$longitude&method=$method&school=$school',
+      );
+      print(url.toString());
+      final response = await http.get(url);
+      final PrayerResponse prayerData = PrayerResponse.fromJson(
+        jsonDecode(response.body)['data'],
+      );
+      return ApiResponse(message: 'Success', statusCode: 200, data: prayerData);
     } catch (e) {
       print(e);
       return ApiResponse(message: 'Something went wrong!', statusCode: 500);

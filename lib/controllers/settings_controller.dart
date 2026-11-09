@@ -10,7 +10,6 @@ import 'package:waqt/models/api_response_model.dart';
 import 'package:waqt/models/calc_method_model.dart';
 import 'package:waqt/models/location_model.dart';
 import 'package:waqt/utils/app_utils.dart';
-import 'package:waqt/views/settings_screen.dart';
 import 'package:waqt/widgets/bottom_sheet.dart';
 
 class SettingsController extends GetxController {
@@ -116,10 +115,10 @@ class SettingsController extends GetxController {
       final List<Location> filteredLocations = [];
       for (final element in popularLocations.value.locations) {
         if (element.id != location.value.id) {
-          print("this is ok");
+          print('this is ok');
           filteredLocations.add(element);
         } else {
-          print("this one is already selected");
+          print('this one is already selected');
         }
       }
       popularLocations.value = Locations(locations: filteredLocations);
@@ -275,6 +274,25 @@ class SettingsController extends GetxController {
       searchedLocations.value = response.data;
       isLoading.value = false;
       errorMsg.value = null;
+    }
+  }
+
+  String formatPrayerTime(String time) {
+    final int hours = int.parse(time.split(':')[0]);
+    if (hours >= 12) {
+      if (timeFormat.value.name == TimeFormat.twelveHour.name) {
+        String formattedPrayerTime = '';
+        if (hours - 12 < 10) {
+          formattedPrayerTime = '0${hours - 12}:${time.split(':')[1]} PM';
+        } else {
+          formattedPrayerTime = '${hours - 12}:${time.split(':')[1]} PM';
+        }
+        return formattedPrayerTime;
+      } else {
+        return time;
+      }
+    } else {
+      return '$time AM';
     }
   }
 }

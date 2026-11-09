@@ -59,7 +59,7 @@ class SelectLocation extends StatelessWidget {
                     children: [
                       Obx(
                         () => Text(
-                          '${settingsController.location.value!.name}, ${settingsController.location.value!.country}',
+                          '${settingsController.location.value.name}, ${settingsController.location.value.country}',
                           style: GoogleFonts.manrope(
                             color: AppColors.primaryText,
                             fontSize: 17,

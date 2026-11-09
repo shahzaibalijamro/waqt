@@ -4,4 +4,5 @@ class AppEndpoints {
   static final Uri methods = Uri.parse('$_baseUrl/methods');
   static const String locations =
       'https://geocoding-api.open-meteo.com/v1/search';
+  static const String prayerData = 'https://api.aladhan.com/v1/timings';
 }
