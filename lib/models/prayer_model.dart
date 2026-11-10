@@ -290,6 +290,12 @@ class NextPrayer {
   final String name;
   final String time;
   final String beginsIn;
+  final bool isTomorrow;
 
-  NextPrayer({required this.name, required this.time, required this.beginsIn});
+  NextPrayer({
+    required this.name,
+    required this.time,
+    required this.beginsIn,
+    this.isTomorrow = false,
+  });
 }

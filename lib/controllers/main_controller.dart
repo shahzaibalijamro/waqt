@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
+import 'package:waqt/controllers/calendar_controller.dart';
+import 'package:waqt/controllers/home_controller.dart';
 import 'package:waqt/views/calendar_screen.dart';
 import 'package:waqt/views/home_screen.dart';
 import 'package:waqt/views/settings_screen.dart';
@@ -42,6 +44,12 @@ class MainController extends GetxController {
   ];
   void switchScreens(int index) {
     currentIndex.value = index;
+    if (index == 0 && Get.isRegistered<HomeController>()) {
+      Get.find<HomeController>().checkPrayerData();
+    }
+    if (index == 1 && Get.isRegistered<CalendarController>()) {
+      Get.find<CalendarController>().checkCalendarData();
+    }
   }
 
   RxnDouble screenWidth = RxnDouble();

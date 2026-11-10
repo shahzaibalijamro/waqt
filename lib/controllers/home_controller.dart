@@ -22,26 +22,36 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    checkPrayerData();
+  }
+
+  void checkPrayerData() {
+    if (isLoading.value) return;
+
     final String? savedPrayerData = appUtils.getStringFromPrefs(
       key: AppKeys.prayerData,
     );
+
     if (savedPrayerData != null) {
-      final Map<String, dynamic> data = jsonDecode(savedPrayerData);
-      if (isPrayerDataCacheValid(
-        DateTime.parse(data['savedAt']),
-        data['location'],
-      )) {
-        print('cache valid');
-        prayerData.value = PrayerResponse.fromJson(data['data']);
-        calculateNextPrayer();
-      } else {
-        print('cache invalid, fetching data');
-        Future.delayed(Duration.zero, fetchPrayerData);
-        return;
+      try {
+        final Map<String, dynamic> data = jsonDecode(savedPrayerData);
+
+        if (isPrayerDataCacheValid(data)) {
+          prayerData.value = PrayerResponse.fromJson(data['data']);
+          print("cache valid");
+          calculateNextPrayer();
+
+          isOffline.value = false;
+          errorMsg.value = null;
+
+          return;
+        }
+      } catch (e) {
+        print('Invalid prayer cache: $e');
       }
-    } else {
-      Future.delayed(Duration.zero, fetchPrayerData);
     }
+
+    fetchPrayerData();
   }
 
   Future<void> fetchPrayerData() async {
@@ -69,24 +79,33 @@ class HomeController extends GetxController {
     // successful response
     // first we order the list in a way that the selected method is first for user experience
     prayerData.value = response.data;
-    appUtils.storeStringInPrefs(
-      key: AppKeys.prayerData,
-      value: jsonEncode({
-        'data': prayerData.value!.toJson(),
-        'savedAt': '${DateTime.now()}',
-        'location':
-            '${settingsController.location.value.name}, ${settingsController.location.value.country}',
-      }),
-    );
+    final String value = jsonEncode({
+      'cacheKey': currentCacheKey,
+      'data': prayerData.value!.toJson(),
+      'savedAt': '${DateTime.now()}',
+    });
+    appUtils.storeStringInPrefs(key: AppKeys.prayerData, value: value);
+    print(value);
     calculateNextPrayer();
     isLoading.value = false;
+    isOffline.value = false;
     errorMsg.value = null;
   }
 
   void calculateNextPrayer() {
+    final data = prayerData.value;
+    if (data == null) {
+      nextPrayer.value = null;
+      return;
+    }
+
     final DateTime currentTime = DateTime.now();
-    for (var i = 0; i < prayerData.value!.timings.toJson().values.length; i++) {
-      String thisPrayer = prayerData.value!.timings.toJson().values.toList()[i];
+    final timings = data.timings.toJson();
+    final entries = timings.entries.toList();
+    nextPrayer.value = null;
+
+    for (final entry in entries) {
+      final thisPrayer = entry.value;
       final DateTime thisPrayerDateTime = DateTime(
         currentTime.year,
         currentTime.month,
@@ -96,21 +115,52 @@ class HomeController extends GetxController {
       );
       if (thisPrayerDateTime.isAfter(currentTime)) {
         nextPrayer.value = NextPrayer(
-          name: prayerData.value!.timings.toJson().keys.toList()[i],
+          name: entry.key,
           time: thisPrayer,
-          beginsIn:
-              'Begins in ${thisPrayerDateTime.difference(currentTime).toString().split(':')[0]}ʰ ${thisPrayerDateTime.difference(currentTime).toString().split(':')[1]}m',
+          beginsIn: _countdownUntil(currentTime, thisPrayerDateTime),
         );
         break;
       }
     }
-    // print(closestNextPrayer.toString());
+
+    if (nextPrayer.value == null) {
+      final fajr = timings['Fajr'];
+      if (fajr == null) return;
+
+      final fajrTomorrow = DateTime(
+        currentTime.year,
+        currentTime.month,
+        currentTime.day + 1,
+        int.parse(fajr.split(':')[0]),
+        int.parse(fajr.split(':')[1]),
+      );
+      nextPrayer.value = NextPrayer(
+        name: 'Fajr',
+        time: fajr,
+        beginsIn: _countdownUntil(currentTime, fajrTomorrow),
+        isTomorrow: true,
+      );
+    }
   }
 
-  bool isPrayerDataCacheValid(DateTime savedAt, String location) {
-    final DateTime today = DateTime.now();
-    return ('${today.day}${today.month}' == '${savedAt.day}${savedAt.month}') &&
-        (location ==
-            '${settingsController.location.value.name}, ${settingsController.location.value.country}');
+  String _countdownUntil(DateTime now, DateTime prayerTime) {
+    final difference = prayerTime.difference(now);
+    return 'Begins in ${difference.inHours}ʰ ${difference.inMinutes.remainder(60)}m';
+  }
+
+  bool isPrayerDataCacheValid(Map<String, dynamic> data) {
+    return data['cacheKey'] == currentCacheKey;
+  }
+
+  String get currentCacheKey {
+    final location = settingsController.location.value;
+
+    return [
+      DateFormat('yyyy-MM-dd').format(DateTime.now()),
+      location.latitude,
+      location.longitude,
+      settingsController.selectedMethod.value.id,
+      settingsController.selectedSchool.value.id,
+    ].join('|');
   }
 }

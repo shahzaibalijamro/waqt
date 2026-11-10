@@ -6,6 +6,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/enums.dart';
 import 'package:waqt/controllers/api_controller.dart';
+import 'package:waqt/controllers/home_controller.dart';
 import 'package:waqt/controllers/main_controller.dart';
 
 class MyAppBar extends StatelessWidget {
@@ -29,7 +30,12 @@ class MyAppBar extends StatelessWidget {
           ],
           if (screen == Screen.search) ...[
             InkWell(
-              onTap: () => Get.back(),
+              onTap: () {
+                if (Get.isRegistered<HomeController>()) {
+                  Get.find<HomeController>().checkPrayerData();
+                }
+                Get.back();
+              },
               child: Container(
                 width: 35,
                 height: 35,

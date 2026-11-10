@@ -277,23 +277,56 @@ class SettingsController extends GetxController {
     }
   }
 
-  String formatPrayerTime(String time) {
+  String formatPrayerTime(String time, [bool? singleDigitHour = false]) {
     final int hours = int.parse(time.split(':')[0]);
-    if (hours >= 12) {
+    if (hours > 12) {
       if (timeFormat.value.name == TimeFormat.twelveHour.name) {
         String formattedPrayerTime = '';
+        // 13:55 example
         if (hours - 12 < 10) {
-          formattedPrayerTime = '0${hours - 12}:${time.split(':')[1]} PM';
+          // 01:55 PM
+          formattedPrayerTime =
+              '${singleDigitHour != null && singleDigitHour ? '' : '0'}${hours - 12}:${time.split(':')[1].substring(0, 2)} PM';
         } else {
-          formattedPrayerTime = '${hours - 12}:${time.split(':')[1]} PM';
+          // 11:55 PM
+          formattedPrayerTime =
+              '${hours - 12}:${time.split(':')[1].substring(0, 2)} PM';
         }
         return formattedPrayerTime;
       } else {
-        return time;
+        return time.substring(0, 5);
       }
-    } else {
-      return '$time AM';
     }
+    if (hours < 12 && hours > 0) {
+      // 11:55 or 05:45
+      if (TimeFormat.twelveHour.name == timeFormat.value.name) {
+        if (hours < 10 && singleDigitHour != null && singleDigitHour) {
+          // 05:45 AM
+          return '${time.substring(1, 5)} AM';
+        }
+        // 11:45
+        return '${time.substring(0, 5)} AM';
+      }
+      // 05:45
+      if (hours < 10 && singleDigitHour != null && singleDigitHour) {
+        return time.substring(1, 5);
+      }
+      return time.substring(0, 5);
+    }
+    if (hours == 12) {
+      if (TimeFormat.twelveHour.name == timeFormat.value.name) {
+        return '${time.substring(0, 5)} PM';
+      }
+      return time.substring(0, 5);
+    }
+    if (TimeFormat.twelveHour.name == timeFormat.value.name) {
+      if (singleDigitHour != null && singleDigitHour) {
+        return '${time.substring(1, 5)} AM';
+      }
+      return '${time.substring(0, 5)} AM';
+    }
+    if (singleDigitHour != null && singleDigitHour) return time.substring(1, 5);
+    return time.substring(0, 5);
   }
 }
 

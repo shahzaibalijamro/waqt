@@ -90,4 +90,36 @@ class ApiController extends GetxController {
       return ApiResponse(message: 'Something went wrong!', statusCode: 500);
     }
   }
+
+  Future<ApiResponse> fetchCalendarData(
+    String year,
+    String month,
+    double latitude,
+    double longitude,
+    int method,
+    int school,
+  ) async {
+    await isOnline();
+    if (isOffline.value) return ApiResponse(message: 'No internet!');
+    try {
+      final url = Uri.parse(
+        '${AppEndpoints.calendarData}/$year/$month?latitude=$latitude&longitude=$longitude&method=$method&school=$school',
+      );
+      print(url.toString());
+      final response = await http.get(url);
+      print(response.body);
+      final List<dynamic> data = jsonDecode(response.body)['data'];
+      final List<PrayerResponse> calendarData = data
+          .map((e) => PrayerResponse.fromJson(e))
+          .toList();
+      return ApiResponse(
+        message: 'Success',
+        statusCode: 200,
+        data: calendarData,
+      );
+    } catch (e) {
+      print(e);
+      return ApiResponse(message: 'Something went wrong!', statusCode: 500);
+    }
+  }
 }
