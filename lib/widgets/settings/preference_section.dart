@@ -6,6 +6,7 @@ import 'package:waqt/constants/colors.dart';
 import 'package:waqt/constants/enums.dart';
 import 'package:waqt/controllers/main_controller.dart';
 import 'package:waqt/controllers/settings_controller.dart';
+import 'package:waqt/services/notification_service.dart';
 
 class PreferenceSection extends StatelessWidget {
   PreferenceSection({super.key});
@@ -41,59 +42,59 @@ class PreferenceSection extends StatelessWidget {
           child: Column(
             children: [
               SelectTimeFormat(),
-              Container(
-                width: double.infinity,
-                height: 1,
-                margin: const EdgeInsets.symmetric(vertical: 16),
-                color: AppColors.mutedText.withValues(alpha: 0.3),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                spacing: 14,
-                children: [
-                  const Icon(
-                    PhosphorIconsBold.bellRinging,
-                    color: AppColors.selectedColor,
-                    size: 30,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 4,
-                    children: [
-                      Text(
-                        'Notifications',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.primaryText,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                          height: 1,
-                        ),
-                      ),
-                      Text(
-                        'Prayer reminders',
-                        style: GoogleFonts.manrope(
-                          color: AppColors.mutedText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Obx(
-                    () => Switch(
-                      value: controller.notificationsEnabled.value,
-                      activeThumbColor: AppColors.white,
-                      activeTrackColor: AppColors.selectedColor,
-                      inactiveThumbColor: AppColors.mutedText,
-                      inactiveTrackColor: AppColors.backgroundColor,
-                      onChanged: (value) =>
-                          controller.updateNotificationsPreference(value),
-                    ),
-                  ),
-                ],
-              ),
+              // Container(
+              //   width: double.infinity,
+              //   height: 1,
+              //   margin: const EdgeInsets.symmetric(vertical: 16),
+              //   color: AppColors.mutedText.withValues(alpha: 0.3),
+              // ),
+              // Row(
+              //   mainAxisSize: MainAxisSize.max,
+              //   spacing: 14,
+              //   children: [
+              //     const Icon(
+              //       PhosphorIconsBold.bellRinging,
+              //       color: AppColors.selectedColor,
+              //       size: 30,
+              //     ),
+              //     Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       spacing: 4,
+              //       children: [
+              //         Text(
+              //           'Notifications',
+              //           style: GoogleFonts.manrope(
+              //             color: AppColors.primaryText,
+              //             fontSize: 17,
+              //             fontWeight: FontWeight.w700,
+              //             height: 1,
+              //           ),
+              //         ),
+              //         Text(
+              //           'Prayer reminders',
+              //           style: GoogleFonts.manrope(
+              //             color: AppColors.mutedText,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w500,
+              //             height: 1,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //     const Spacer(),
+              //     Obx(
+              //       () => Switch(
+              //         value: controller.notificationsEnabled.value,
+              //         activeThumbColor: AppColors.white,
+              //         activeTrackColor: AppColors.selectedColor,
+              //         inactiveThumbColor: AppColors.mutedText,
+              //         inactiveTrackColor: AppColors.backgroundColor,
+              //         onChanged: (value) =>
+              //             controller.updateNotificationsPreference(value),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

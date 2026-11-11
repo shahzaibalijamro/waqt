@@ -109,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
             if (controller.isLoading.value) {
               return SizedBox(
                 height: mainController.screenHeight.value! / 2,
-                child: Center(
-                  child: CircularProgressIndicator(
+                child: const Center(
+                  child: const CircularProgressIndicator(
                     color: AppColors.selectedColor,
                   ),
                 ),
@@ -388,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox.shrink(),
+                                  : const SizedBox.shrink(),
                             ],
                           ),
                         ),

@@ -38,7 +38,7 @@ class HomeController extends GetxController {
 
         if (isPrayerDataCacheValid(data)) {
           prayerData.value = PrayerResponse.fromJson(data['data']);
-          print("cache valid");
+          print('cache valid');
           calculateNextPrayer();
 
           isOffline.value = false;

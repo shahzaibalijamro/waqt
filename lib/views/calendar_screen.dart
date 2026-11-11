@@ -294,13 +294,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             color: isToday(calendarData[i].date.gregorian.day)
                                 ? AppColors.highLightColor
                                 : Colors.transparent,
-                            border: BoxBorder.fromLTRB(
-                              bottom: BorderSide(
-                                color: AppColors.mutedText.withValues(
-                                  alpha: 0.3,
-                                ),
-                              ),
-                            ),
+                            border: i != calendarData.length - 1
+                                ? BoxBorder.fromLTRB(
+                                    bottom: BorderSide(
+                                      color: AppColors.mutedText.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                    ),
+                                  )
+                                : null,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,

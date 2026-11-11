@@ -9,6 +9,7 @@ import 'package:waqt/controllers/api_controller.dart';
 import 'package:waqt/models/api_response_model.dart';
 import 'package:waqt/models/calc_method_model.dart';
 import 'package:waqt/models/location_model.dart';
+import 'package:waqt/services/notification_service.dart';
 import 'package:waqt/utils/app_utils.dart';
 import 'package:waqt/widgets/bottom_sheet.dart';
 
@@ -27,7 +28,7 @@ class SettingsController extends GetxController {
   RxList<CalculationMethod> calcMethods = <CalculationMethod>[].obs;
   RxBool isOffline = false.obs;
   RxnString errorMsg = RxnString();
-  RxBool notificationsEnabled = true.obs;
+  RxBool notificationsEnabled = false.obs;
   Rx<TimeFormat> timeFormat = TimeFormat.twentyFourHour.obs;
   Rx<CalculationMethod> selectedMethod = const CalculationMethod(
     id: 1,
@@ -38,6 +39,8 @@ class SettingsController extends GetxController {
   RxList<CalculationMethod> searchResults = <CalculationMethod>[].obs;
   Rx<Locations> popularLocations = popularLocationsList.obs;
   Rx<Locations> searchedLocations = Locations(locations: []).obs;
+  // final NotificationService notificationService =
+  // Get.find<NotificationService>();
 
   @override
   void onInit() {
@@ -210,10 +213,30 @@ class SettingsController extends GetxController {
     calcMethods.value = orderedCalcMethods;
   }
 
-  void updateNotificationsPreference(bool value) {
-    notificationsEnabled.value = value;
-    utils.storeBoolInPrefs(key: AppKeys.notifications, value: value);
-  }
+  // void updateNotificationsPreference(bool value) async {
+  //   if (!value) {
+  //     notificationsEnabled.value = false;
+
+  //     // await notificationService.cancelPrayerReminders();
+
+  //     utils.storeBoolInPrefs(key: AppKeys.notifications, value: false);
+
+  //     return;
+  //   }
+  //   final notificationGranted = await notificationService
+  //       .requestNotificationPermission();
+
+  //   if (!notificationGranted) return;
+
+  //   final exactAlarmGranted = await notificationService
+  //       .requestExactAlarmPermission();
+
+  //   print(exactAlarmGranted);
+
+  //   notificationsEnabled.value = true;
+
+  //   utils.storeBoolInPrefs(key: AppKeys.notifications, value: true);
+  // }
 
   void updateTimeFormat(TimeFormat value) {
     timeFormat.value = value;

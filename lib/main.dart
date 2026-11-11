@@ -6,11 +6,17 @@ import 'package:waqt/utils/app_utils.dart';
 import 'package:waqt/views/main_screen.dart';
 import 'package:waqt/views/search_screen.dart';
 
+// import 'services/notification_service.dart';
+
 import './views/splash_screen.dart';
 
 Future<void> main() async {
   final AppUtils utils = Get.put(AppUtils(), permanent: true);
   await utils.initPrefs();
+  // final notificationService = NotificationService();
+  // await notificationService.initialize();
+
+  // Get.put(notificationService);
   Get.put(ApiController(), permanent: true);
   runApp(const MyApp());
 }

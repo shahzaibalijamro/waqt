@@ -41,6 +41,8 @@ dependencies:
   shared_preferences: ^2.5.6
   skeletonizer: ^3.0.0
   http: ^1.6.0
+  flutter_local_notifications: ^23.0.1
+  timezone: ^0.11.2
 
 dev_dependencies:
   flutter_test:

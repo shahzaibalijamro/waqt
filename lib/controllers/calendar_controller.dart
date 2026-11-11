@@ -57,12 +57,12 @@ class CalendarController extends GetxController {
         final Map<String, dynamic> data = jsonDecode(savedCalendarData);
 
         if (isCalendarDataCacheValid(data)) {
-          final List<Map<String, dynamic>> rawData = data['data'];
+          final List<dynamic> rawData = data['data'];
           calendarData.value = rawData
               .map((e) => PrayerResponse.fromJson(e))
               .toList();
           print(calendarData.value!.length);
-          print("cache valid");
+          print('cache valid');
 
           isOffline.value = false;
           errorMsg.value = null;
