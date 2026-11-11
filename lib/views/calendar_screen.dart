@@ -20,6 +20,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   SettingsController settingsController = Get.find<SettingsController>();
   MainController mainController = Get.find<MainController>();
   CalendarController controller = Get.put(CalendarController());
+  final ScrollController _dateScrollController = ScrollController();
+
+  String? _lastAutoScrolledPeriod;
   List<String> months = [
     'January',
     'February',
@@ -34,7 +37,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
     'November',
     'December',
   ];
-  bool isToday(String date) => date == '${DateTime.now().day}';
+  bool isToday(String date) {
+    final now = DateTime.now();
+
+    return date == '${now.day}' &&
+        controller.selectedMonth.value == now.month &&
+        controller.selectedYear.value == now.year;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _dateScrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -284,17 +299,52 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       child: Text('No calendar data available.'),
                     );
                   }
-                  return Column(
-                    children: [
-                      for (int i = 0; i < calendarData.length; i++)
-                        Container(
+                  final todayIndex = calendarData.indexWhere(
+                    (item) => isToday(item.date.gregorian.day),
+                  );
+
+                  final currentPeriod =
+                      '${controller.selectedYear.value}-${controller.selectedMonth.value}';
+
+                  if (todayIndex == -1) {
+                    _lastAutoScrolledPeriod = null;
+                  } else if (_lastAutoScrolledPeriod != currentPeriod) {
+                    _lastAutoScrolledPeriod = currentPeriod;
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (!mounted || !_dateScrollController.hasClients) return;
+
+                      final position = _dateScrollController.position;
+
+                      final targetOffset = (todayIndex * 80);
+
+                      _dateScrollController.animateTo(
+                        targetOffset
+                            .clamp(0.0, position.maxScrollExtent)
+                            .toDouble(),
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.easeInOut,
+                      );
+                    });
+                  }
+                  return SizedBox(
+                    height: mainController.screenHeight.value! * 0.4,
+                    child: ListView.builder(
+                      controller: _dateScrollController,
+                      primary: false,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: calendarData.length,
+                      itemExtent: 80,
+                      itemBuilder: (context, index) {
+                        return Container(
                           padding: const EdgeInsets.all(16),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: isToday(calendarData[i].date.gregorian.day)
+                            color:
+                                isToday(calendarData[index].date.gregorian.day)
                                 ? AppColors.highLightColor
                                 : Colors.transparent,
-                            border: i != calendarData.length - 1
+                            border: index != calendarData.length - 1
                                 ? BoxBorder.fromLTRB(
                                     bottom: BorderSide(
                                       color: AppColors.mutedText.withValues(
@@ -311,7 +361,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 child: Text.rich(
                                   textAlign: TextAlign.start,
                                   TextSpan(
-                                    text: calendarData[i].date.gregorian.day,
+                                    text:
+                                        calendarData[index].date.gregorian.day,
                                     style: GoogleFonts.manrope(
                                       color: AppColors.primaryText,
                                       fontWeight: FontWeight.w800,
@@ -329,7 +380,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: calendarData[i]
+                                        text: calendarData[index]
                                             .date
                                             .gregorian
                                             .weekday
@@ -358,12 +409,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TimeFormat.twelveHour.name
                                         ? settingsController
                                               .formatPrayerTime(
-                                                calendarData[i].timings.fajr,
+                                                calendarData[index]
+                                                    .timings
+                                                    .fajr,
                                                 true,
                                               )
                                               .split(' ')[0]
                                         : settingsController.formatPrayerTime(
-                                            calendarData[i].timings.fajr,
+                                            calendarData[index].timings.fajr,
                                             true,
                                           ),
                                     style: GoogleFonts.manrope(
@@ -390,7 +443,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TextSpan(
                                               text: settingsController
                                                   .formatPrayerTime(
-                                                    calendarData[i]
+                                                    calendarData[index]
                                                         .timings
                                                         .fajr,
                                                     true,
@@ -420,12 +473,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TimeFormat.twelveHour.name
                                         ? settingsController
                                               .formatPrayerTime(
-                                                calendarData[i].timings.dhuhr,
+                                                calendarData[index]
+                                                    .timings
+                                                    .dhuhr,
                                                 true,
                                               )
                                               .split(' ')[0]
                                         : settingsController.formatPrayerTime(
-                                            calendarData[i].timings.dhuhr,
+                                            calendarData[index].timings.dhuhr,
                                             true,
                                           ),
                                     style: GoogleFonts.manrope(
@@ -452,7 +507,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TextSpan(
                                               text: settingsController
                                                   .formatPrayerTime(
-                                                    calendarData[i]
+                                                    calendarData[index]
                                                         .timings
                                                         .dhuhr,
                                                     true,
@@ -482,12 +537,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TimeFormat.twelveHour.name
                                         ? settingsController
                                               .formatPrayerTime(
-                                                calendarData[i].timings.asr,
+                                                calendarData[index].timings.asr,
                                                 true,
                                               )
                                               .split(' ')[0]
                                         : settingsController.formatPrayerTime(
-                                            calendarData[i].timings.asr,
+                                            calendarData[index].timings.asr,
                                             true,
                                           ),
                                     style: GoogleFonts.manrope(
@@ -514,7 +569,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TextSpan(
                                               text: settingsController
                                                   .formatPrayerTime(
-                                                    calendarData[i].timings.asr,
+                                                    calendarData[index]
+                                                        .timings
+                                                        .asr,
                                                     true,
                                                   )
                                                   .split(' ')[1],
@@ -542,12 +599,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TimeFormat.twelveHour.name
                                         ? settingsController
                                               .formatPrayerTime(
-                                                calendarData[i].timings.maghrib,
+                                                calendarData[index]
+                                                    .timings
+                                                    .maghrib,
                                                 true,
                                               )
                                               .split(' ')[0]
                                         : settingsController.formatPrayerTime(
-                                            calendarData[i].timings.maghrib,
+                                            calendarData[index].timings.maghrib,
                                             true,
                                           ),
                                     style: GoogleFonts.manrope(
@@ -574,7 +633,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TextSpan(
                                               text: settingsController
                                                   .formatPrayerTime(
-                                                    calendarData[i]
+                                                    calendarData[index]
                                                         .timings
                                                         .maghrib,
                                                     true,
@@ -604,12 +663,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TimeFormat.twelveHour.name
                                         ? settingsController
                                               .formatPrayerTime(
-                                                calendarData[i].timings.isha,
+                                                calendarData[index]
+                                                    .timings
+                                                    .isha,
                                                 true,
                                               )
                                               .split(' ')[0]
                                         : settingsController.formatPrayerTime(
-                                            calendarData[i].timings.isha,
+                                            calendarData[index].timings.isha,
                                             true,
                                           ),
                                     style: GoogleFonts.manrope(
@@ -636,7 +697,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             TextSpan(
                                               text: settingsController
                                                   .formatPrayerTime(
-                                                    calendarData[i]
+                                                    calendarData[index]
                                                         .timings
                                                         .isha,
                                                     true,
@@ -656,8 +717,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               ),
                             ],
                           ),
-                        ),
-                    ],
+                        );
+                      },
+                    ),
                   );
                 }),
               ],
